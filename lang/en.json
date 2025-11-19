@@ -1,0 +1,21 @@
+{
+    "MicrosoftTeams": {
+        "IncomingWebhookRequiredErrorMessage": "Microsoft Teams Webhook Url cannot be empty.",
+        "TeamsWebhookUrl": "Microsoft Teams Webhook URL",
+        "ClientIdTitle": "Microsoft Client ID",
+        "TeamsChannel": "Microsoft Teams Channel",
+        "ClientIdDescription": "Enter your Microsoft Client ID.",
+        "ClientSecretTitle": "Microsoft Client Secret",
+        "ClientSecretExpiryDateTitle": "Microsoft Client Secret Expiry Date",
+        "ClientSecretExpiryDateDescription": "Optional, set the expiry date in YYYY-MM-DD format to receive alert on expiry.",
+        "ClientSecretDescription": "Enter your Microsoft Client Secret.",
+        "TenantIdTitle": "Microsoft Tenant ID",
+        "TenantIdDescription": "Enter your Microsoft Tenant ID.",
+        "TeamIdTitle": "Microsoft Teams ID",
+        "TeamIdDescription": "Enter your Microsoft Teams ID.",
+        "TeamsEnterYourWebhookUrlText": "Enter your Microsoft Teams Webhook URL",
+        "RequiredFieldsNotSet": "The required fields to send file is not set. Please set it %1$shere%2$s.",
+        "PleaseFindYourReport": "Here is your %1$s report for %2$s.",
+        "MicrosoftTeamsAlertContent": "%1$s has been triggered for website %2$s as the metric %3$s in report %4$s %5$s."
+    }
+}
