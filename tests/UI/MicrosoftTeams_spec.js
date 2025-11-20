@@ -63,7 +63,7 @@
 
   it('should show teams channel ID input as enabled when required fields set', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', clientSecret: 'teamsClientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
+    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await page.goto('?module=ScheduledReports&action=index&idSite=1&period=day&date=yesterday');
     await page.waitForNetworkIdle();
@@ -79,7 +79,7 @@
 
   it('should show show error if webhookURL not set', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', clientSecret: 'teamsClientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
+    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_report_error', async () => {
       await page.type('textarea#report_description', 'teams Report');
