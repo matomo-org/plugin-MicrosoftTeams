@@ -13,7 +13,6 @@ use Piwik\Piwik;
 use Piwik\Plugins\Marketplace\Api\Exception;
 use Piwik\Settings\Setting;
 use Piwik\Settings\FieldConfig;
-use Piwik\Validators\NotEmpty;
 
 class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 {
