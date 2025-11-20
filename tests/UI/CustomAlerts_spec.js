@@ -63,7 +63,7 @@
 
   it('should show MicrosoftTeams webhookURL input as enabled when required fields set', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', clientSecret: 'teamsClientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
+    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await page.goto('?module=CustomAlerts&action=addNewAlert&idSite=1&period=day&date=yesterday');
     await page.waitForNetworkIdle();
@@ -74,7 +74,7 @@
 
   it('should show show error if webhookURL not set', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', clientSecret: 'teamsClientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
+    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_report_error', async () => {
       await page.type('#alertName', 'Test teams Alert');
@@ -87,7 +87,7 @@
 
   it('should save a report successfully', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', clientSecret: 'teamsClientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
+    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_alert_report_save_success', async () => {
       await page.type('input#webhookURL', 'https://WEBHOOK_URL');
