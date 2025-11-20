@@ -1,6 +1,7 @@
 {
     "MicrosoftTeams": {
         "IncomingWebhookRequiredErrorMessage": "Microsoft Teams Webhook Url cannot be empty.",
+        "IncomingWebhookInvalidErrorMessage": "Invalid Microsoft Teams Webhook Url.",
         "TeamsWebhookUrl": "Microsoft Teams Webhook URL",
         "ClientIdTitle": "Microsoft Client ID",
         "TeamsChannel": "Microsoft Teams Channel",
