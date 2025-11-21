@@ -147,7 +147,7 @@ if (typeof window !== 'undefined') {
 // EXTERNAL MODULE: external {"commonjs":"vue","commonjs2":"vue","root":"Vue"}
 var external_commonjs_vue_commonjs2_vue_root_Vue_ = __webpack_require__("8bbf");
 
-// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/MicrosoftTeams/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=36a99173
+// CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/MicrosoftTeams/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=0534c299
 
 const _hoisted_1 = {
   key: 0
@@ -161,7 +161,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "onUpdate:modelValue": _cache[0] || (_cache[0] = $event => _ctx.$emit('change', 'msTeamsWebhookUrl', $event))
   }, null, 8, ["is-required-fields-set", "model-value"])])) : Object(external_commonjs_vue_commonjs2_vue_root_Vue_["createCommentVNode"])("", true);
 }
-// CONCATENATED MODULE: ./plugins/MicrosoftTeams/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=36a99173
+// CONCATENATED MODULE: ./plugins/MicrosoftTeams/vue/src/ReportParameters/ReportParameters.vue?vue&type=template&id=0534c299
 
 // CONCATENATED MODULE: ./node_modules/@vue/cli-plugin-babel/node_modules/cache-loader/dist/cjs.js??ref--13-0!./node_modules/@vue/cli-plugin-babel/node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist/templateLoader.js??ref--6!./node_modules/@vue/cli-service/node_modules/cache-loader/dist/cjs.js??ref--1-0!./node_modules/@vue/cli-service/node_modules/vue-loader-v16/dist??ref--1-1!./plugins/MicrosoftTeams/vue/src/SelectMicrosoftTeamsWebhookUrl/SelectMicrosoftTeamsWebhookUrl.vue?vue&type=template&id=393d5238
 
@@ -289,8 +289,7 @@ const REPORT_TYPE = 'teams';
         report.displayFormat = props.defaultDisplayFormat;
         report.evolutionGraph = props.defaultEvolutionGraph;
         report.formatteams = props.defaultFormat;
-        report.teamChannelID = '';
-        report.teamChannelID = '';
+        report.msTeamsWebhookUrl = '';
       };
     }
     if (!updateReportParametersFunctions[REPORT_TYPE]) {

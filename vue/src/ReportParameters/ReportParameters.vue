@@ -58,8 +58,7 @@ export default defineComponent({
         report.displayFormat = props.defaultDisplayFormat;
         report.evolutionGraph = props.defaultEvolutionGraph;
         report.formatteams = props.defaultFormat;
-        report.teamChannelID = '';
-        report.teamChannelID = '';
+        report.msTeamsWebhookUrl = '';
       };
     }
     if (!updateReportParametersFunctions[REPORT_TYPE]) {
