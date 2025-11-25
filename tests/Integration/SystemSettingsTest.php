@@ -60,14 +60,14 @@ class SystemSettingsTest extends IntegrationTestCase
     public function testMicrosoftTeamsClientSecretExpiryDateException()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Invalid date format, allowed date format is YYYY-MM-D');
+        $this->expectExceptionMessage('Invalid date format, allowed date format is YYYY-MM-DD');
         $this->settings->clientSecretExpiryDate->setValue('date ');
     }
 
     public function testMicrosoftTeamsClientSecretExpiryDateException2()
     {
         $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Invalid date format, allowed date format is YYYY-MM-D');
+        $this->expectExceptionMessage('Invalid date format, allowed date format is YYYY-MM-DD');
         $this->settings->clientSecretExpiryDate->setValue('2202-13-40 ');
     }
 
