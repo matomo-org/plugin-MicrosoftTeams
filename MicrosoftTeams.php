@@ -17,6 +17,7 @@ use Piwik\Piwik;
 use Piwik\Plugins\ScheduledReports\ScheduledReports;
 use Piwik\ReportRenderer;
 use Piwik\SettingsPiwik;
+use Piwik\UrlHelper;
 use Piwik\View;
 
 class MicrosoftTeams extends \Piwik\Plugin
@@ -134,6 +135,8 @@ class MicrosoftTeams extends \Piwik\Plugin
             throw new \Exception(Piwik::translate('MicrosoftTeams_RequiredFieldsNotSet'));
         } elseif (empty($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookRequiredErrorMessage'));
+        } elseif (!UrlHelper::isLookLikeUrl($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
+            throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
     }
 
@@ -362,8 +365,12 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function validateCustomAlertReportParameters($parameters, $alertMedium)
     {
-        if ($alertMedium === self::MS_TEAMS_TYPE && empty($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
-            throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookRequiredErrorMessage'));
+        if ($alertMedium === self::MS_TEAMS_TYPE) {
+            if (empty($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
+                throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookRequiredErrorMessage'));
+            } elseif (!UrlHelper::isLookLikeUrl($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
+                throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
+            }
         }
     }
 

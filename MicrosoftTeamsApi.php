@@ -187,7 +187,7 @@ class MicrosoftTeamsApi
     /**
      * @return string
      */
-    private function getTeamsSiteId(): string
+    public function getTeamsSiteId(): string
     {
         try {
             $response = $this->sendHttpRequest(
@@ -215,7 +215,7 @@ class MicrosoftTeamsApi
      * @param string $siteID
      * @return string
      */
-    private function getTeamsDriveId(string $siteID): string
+    public function getTeamsDriveId(string $siteID): string
     {
         try {
             $response = $this->sendHttpRequest(
