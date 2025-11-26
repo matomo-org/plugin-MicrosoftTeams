@@ -332,8 +332,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         if (!$force && $this->reportAlreadySent($report, $period)) {
             $logger->warning(
                 'Preventing the same scheduled report from being sent again (report #%s for period "%s")',
-                $report['idreport'],
-                $prettyDate
+                $report['idreport']
             );
             return;
         }
