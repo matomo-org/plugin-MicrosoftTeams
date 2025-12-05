@@ -57,7 +57,7 @@
   it('should show MicrosoftTeams webhookURL input as disabled as required fields not set', async function () {
     const selector = '.page';
     await captureScreen('teams_report_disabled', async () => {
-      await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("teams")').click());
+      await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Teams")').click());
     }, selector);
   });
 
@@ -68,7 +68,7 @@
     await page.goto('?module=CustomAlerts&action=addNewAlert&idSite=1&period=day&date=yesterday');
     await page.waitForNetworkIdle();
     await captureScreen('teams_report_enabled', async () => {
-      await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("teams")').click());
+      await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Teams")').click());
     }, selector);
   });
 
