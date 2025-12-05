@@ -54,28 +54,15 @@
     await page.click('.report-mediums .select-dropdown');
   });
 
-  it('should show MicrosoftTeams webhookURL input as disabled as required fields not set', async function () {
+  it('should show MicrosoftTeams webhookURL input as enabled by default as it requires webhook URL only', async function () {
     const selector = '.page';
-    await captureScreen('teams_report_disabled', async () => {
-      await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Teams")').click());
-    }, selector);
-  });
-
-  it('should show MicrosoftTeams webhookURL input as enabled when required fields set', async function () {
-    const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
-    testEnvironment.save();
-    await page.goto('?module=CustomAlerts&action=addNewAlert&idSite=1&period=day&date=yesterday');
-    await page.waitForNetworkIdle();
-    await captureScreen('teams_report_enabled', async () => {
+    await captureScreen('teams_report_enabled_default', async () => {
       await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Teams")').click());
     }, selector);
   });
 
   it('should show show error if webhookURL not set', async function () {
     const selector = '.page';
-    testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
-    testEnvironment.save();
     await captureScreen('teams_report_error', async () => {
       await page.type('#alertName', 'Test teams Alert');
       await page.evaluate(() => $('.conditionAndValue .select-wrapper ul li:last').click());
