@@ -331,9 +331,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         // Safeguard against sending the same report twice to the same Teams channel (unless $force is true)
         if (!$force && $this->reportAlreadySent($report, $period)) {
             $logger->warning(
-                'Preventing the same scheduled report from being sent again (report #%s for period "%s")',
-                $report['idreport'],
-                $prettyDate
+                sprintf('Preventing the same scheduled report from being sent again (report #%s for period "%s")', $report['idreport'], $report['period'])
             );
             return;
         }
