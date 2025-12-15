@@ -252,7 +252,7 @@ class MicrosoftTeamsApi
      * @param array $additionalHeaders
      * @param $requestBodyAsString
      * @param $httpMethod
-     * @return array|int[]|string
+     * @return string
      * @throws \Exception
      */
     private function sendHttpRequest(string $url, int $timeout, ?array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false, $httpMethod = 'POST')
