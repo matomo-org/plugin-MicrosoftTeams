@@ -46,7 +46,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('teamsClientID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_ClientIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
-            $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientIdDescription', $this->getRequiredFieldsLEarnMoreTranslation());
+            $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
             $field->transform = function ($value) {
                 return trim($value);
             };
@@ -58,7 +58,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('teamsClientSecret', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_ClientSecretTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
-            $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientSecretDescription', $this->getRequiredFieldsLEarnMoreTranslation());
+            $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientSecretDescription', $this->getRequiredFieldsLearnMoreTranslation());
             $field->transform = function ($value) {
                 return trim($value);
             };
@@ -92,7 +92,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('teamsTenantID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_TenantIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
-            $field->inlineHelp = Piwik::translate('MicrosoftTeams_TenantIdDescription', $this->getRequiredFieldsLEarnMoreTranslation());
+            $field->inlineHelp = Piwik::translate('MicrosoftTeams_TenantIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
             $field->transform = function ($value) {
                 return trim($value);
             };
@@ -104,7 +104,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         return $this->makeSetting('teamsTeamID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_TeamIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
-            $field->inlineHelp = Piwik::translate('MicrosoftTeams_TeamIdDescription', $this->getRequiredFieldsLEarnMoreTranslation());
+            $field->inlineHelp = Piwik::translate('MicrosoftTeams_TeamIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
             $field->transform = function ($value) {
                 return trim($value);
             };
@@ -129,7 +129,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
         ];
     }
 
-    private function getRequiredFieldsLEarnMoreTranslation(): array
+    private function getRequiredFieldsLearnMoreTranslation(): array
     {
         return [
             '<a href="https://matomo.org/?post_type=faq&p=89518&preview=true" target="_blank" rel="noopener noreferrer">',
