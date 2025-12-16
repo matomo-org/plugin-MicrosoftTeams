@@ -9,21 +9,26 @@
     "authors": [
         {
             "name": "Matomo",
-            "email": "",
-            "homepage": ""
+            "email": "hello@matomo.org",
+            "homepage": "https://matomo.org"
         }
     ],
     "support": {
-        "email": "",
-        "issues": "",
-        "forum": "",
-        "irc": "",
-        "wiki": "",
-        "source": "",
-        "docs": "",
-        "rss": ""
+        "email": "hello@matomo.org",
+        "issues": "https://github.com/matomo-org/plugin-MicrosoftTeams/issues",
+        "forum": "https://forum.matomo.org",
+        "source": "https://github.com/matomo-org/plugin-MicrosoftTeams",
+        "wiki": "https://github.com/matomo-org/plugin-MicrosoftTeams/wiki"
     },
     "homepage": "",
     "license": "GPL v3+",
-    "keywords": []
+    "keywords": [
+        "Microsoft Teams",
+        "MicrosoftTeams",
+        "Microsoft",
+        "Teams",
+        "ScheduledReports",
+        "CustomAlerts"
+    ],
+    "category": "integration"
 }
