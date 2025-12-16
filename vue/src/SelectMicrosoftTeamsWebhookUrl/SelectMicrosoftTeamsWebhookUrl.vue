@@ -25,9 +25,9 @@
           </span>
           <span
               v-else
-              v-text="translate('MicrosoftTeams_TeamsEnterYourWebhookUrlText')"
+              v-html="$sanitize(getTeamsWebhookUrlHelpText)"
           >
-                </span>
+          </span>
         </div>
       </template>
     </Field>
@@ -65,6 +65,14 @@ export default defineComponent({
       return translate(
         'MicrosoftTeams_RequiredFieldsNotSet',
         `<a href="${link}#/MicrosoftTeams" rel="noreferrer noopener" target="_blank">`,
+        '</a>',
+      );
+    },
+    getTeamsWebhookUrlHelpText() {
+      const link = 'https://matomo.org/?post_type=faq&p=89505&preview=true';
+      return translate(
+        'MicrosoftTeams_TeamsEnterYourWebhookUrlText',
+        `<a href="${link}" rel="noreferrer noopener" target="_blank">`,
         '</a>',
       );
     },
