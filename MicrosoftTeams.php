@@ -390,7 +390,7 @@ class MicrosoftTeams extends \Piwik\Plugin
                 $msTeamsApi = new MicrosoftTeamsApi($msTeamsWebhookUrl);
                 if (!$msTeamsApi->sendMessageToTeamsChannel(implode("<br>", $alert['message']))) {
                     $logger = StaticContainer::get(LoggerInterface::class);
-                    $logger->debug('MicrosoftTeams alert failed for following alerts: ' . implode("\n", $alert['name']));
+                    $logger->info('MicrosoftTeams alert failed for following alerts: ' . implode("\n", $alert['name']));
                 }
             }
         }

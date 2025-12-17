@@ -79,11 +79,11 @@ class MicrosoftTeamsApi
         if (!empty($this->accessToken)) {
             $uploadURL = $this->uploadFileToDriveAndGetLink($fileName, $fileContents);
             if (!empty($uploadURL)) {
-                return $this->sendMessageToTeamsChannel($subject . "<br><a href='$uploadURL'>$fileName</a>'");
+                return $this->sendMessageToTeamsChannel($subject . "<br><a href='$uploadURL'>$fileName</a>");
             }
         }
 
-        $this->logger->debug('Unable to send ' . $fileName . ' report to Microsoft Teams');
+        $this->logger->info('Unable to send ' . $fileName . ' report to Microsoft Teams');
 
         return false;
     }
@@ -106,7 +106,7 @@ class MicrosoftTeamsApi
                 ['Content-Type: application/x-www-form-urlencoded']
             );
         } catch (\Exception $e) {
-            $this->logger->debug('MicrosoftTeams error getAccessToken: ' . $e->getMessage());
+            $this->logger->error('MicrosoftTeams error getAccessToken: ' . $e->getMessage());
             return '';
         }
 
@@ -149,7 +149,7 @@ class MicrosoftTeamsApi
                 'PUT'
             );
         } catch (\Exception $e) {
-            $this->logger->debug('MicrosoftTeams error uploadFileToDriveAndGetLink: ' . $e->getMessage());
+            $this->logger->error('MicrosoftTeams error uploadFileToDriveAndGetLink: ' . $e->getMessage());
             return '';
         }
 
@@ -177,7 +177,7 @@ class MicrosoftTeamsApi
                 true
             );
         } catch (\Exception $e) {
-            $this->logger->debug('MicrosoftTeams error sendMessageToTeamsChannel: ' . $e->getMessage());
+            $this->logger->error('MicrosoftTeams error sendMessageToTeamsChannel: ' . $e->getMessage());
             return false;
         }
 
@@ -199,7 +199,7 @@ class MicrosoftTeamsApi
                 'GET'
             );
         } catch (\Exception $e) {
-            $this->logger->debug('MicrosoftTeams error getTeamsSiteId: ' . $e->getMessage());
+            $this->logger->error('MicrosoftTeams error getTeamsSiteId: ' . $e->getMessage());
             return '';
         }
 
@@ -227,7 +227,7 @@ class MicrosoftTeamsApi
                 'GET'
             );
         } catch (\Exception $e) {
-            $this->logger->debug('MicrosoftTeams error getTeamsDriveId: ' . $e->getMessage());
+            $this->logger->error('MicrosoftTeams error getTeamsDriveId: ' . $e->getMessage());
             return '';
         }
 
@@ -235,7 +235,7 @@ class MicrosoftTeamsApi
         $driveID = '';
         if (!empty($data['value'])) {
             foreach ($data['value'] as $drive) {
-                if ($drive['name'] === 'Documents') {
+                if (!empty($drive['id'])) {
                     $driveID = $drive['id'];
                     break;
                 }
