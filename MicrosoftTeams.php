@@ -78,7 +78,6 @@ class MicrosoftTeams extends \Piwik\Plugin
         $translationKeys[] = 'MicrosoftTeams_TenantIdTitle';
         $translationKeys[] = 'MicrosoftTeams_TenantIdDescription';
         $translationKeys[] = 'MicrosoftTeams_TeamsEnterYourWebhookUrlText';
-        $translationKeys[] = 'MicrosoftTeams_RequiredFieldsNotSet';
     }
 
     /**
@@ -437,7 +436,7 @@ class MicrosoftTeams extends \Piwik\Plugin
             $settingURL .= 'index.php';
         }
         $settingURL .= '?idSite=' . $alert['idsite'];
-        $siteName = $alert['siteName'];
+        $siteName = htmlspecialchars($alert['siteName'], ENT_QUOTES);
         $siteWithLink = "<a href='$settingURL'>$siteName</a>";
         return Piwik::translate('MicrosoftTeams_MicrosoftTeamsAlertContent', [$alert['name'], $siteWithLink, $metric, $reportName, $this->transformAlertCondition($alert)]);
     }

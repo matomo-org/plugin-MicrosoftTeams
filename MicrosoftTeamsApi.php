@@ -42,7 +42,7 @@ class MicrosoftTeamsApi
     private const DRIVE_ID_URL = 'https://graph.microsoft.com/v1.0/sites/{siteID}/drives';
     private const UPLOAD_URL = 'https://graph.microsoft.com/v1.0/drives/{driveID}/root:/{$fileName}:/content';
 
-    private const TEAMS_TIMEOUT = 5000;
+    private const TEAMS_TIMEOUT = 5;
 
     public function __construct(
         #[\SensitiveParameter]
