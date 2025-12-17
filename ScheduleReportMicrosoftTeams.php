@@ -82,7 +82,7 @@ class ScheduleReportMicrosoftTeams
             return $note;
         }
 
-        if ($interval->days <= 15) {
+        if ($interval->days <= 31) {
             $note = Piwik::translate('MicrosoftTeams_ClientSecretExpiryNote', ['<strong>', '</strong>', $expiryDate]);
         }
 
