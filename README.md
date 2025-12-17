@@ -6,9 +6,11 @@ Deliver the right information to stakeholders automatically, exactly when they n
 
 ## Description
 
-Standard dashboard reports sometimes aren’t enough to keep stakeholders informed. If you need to share insights quickly and make analytics more actionable, **scheduled report delivery** and **custom alerts** ensures no one misses the data that matters most.
+Bring Matomo directly into Microsoft Teams, where decisions actually happen. Zero cost. Zero friction. Real insight.
 
-With the **Matomo Microsoft Teams** plugin, you can set up automated reports and tailored alerts directly in Microsoft Teams. This keeps your team updated, saves time, and makes it easier to monitor changes and respond promptly.
+The Matomo plugin for Microsoft Teams delivers key analytics directly into daily workflows to surface real user behaviour, conversion trends, and anomalies where decisions already happen.
+
+Integrating with collaboration tools like Microsoft Teams reduces reporting delays, fragmented communication,  and keeps insights anchored in the conversations that drive action. Faster visibility, shared understanding across teams, and zero budget risk make installation a rational choice, not an experiment.
 
 ## How the Matomo Microsoft Teams Plugin Works
 
