@@ -17,6 +17,7 @@
         "TeamsEnterYourWebhookUrlText": "Enter your Microsoft Teams Webhook URL. %1$sLearn more%2$s on how to get the Webhook URL.",
         "RequiredFieldsNotSet": "The required fields to send a file are not set. Please set them %1$shere%2$s.",
         "PleaseFindYourReport": "Here is your %1$s report for %2$s.",
-        "MicrosoftTeamsAlertContent": "%1$s has been triggered for website %2$s as the metric %3$s in report %4$s %5$s."
+        "MicrosoftTeamsAlertContent": "%1$s has been triggered for website %2$s as the metric %3$s in report %4$s %5$s.",
+        "ClientSecretExpiryNote": "%1$sNote:%2$s The client secret is scheduled to expire on %3$s. Please generate a new token and update it in Matomo to ensure uninterrupted scheduled reports."
     }
 }

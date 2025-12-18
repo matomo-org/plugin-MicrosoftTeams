@@ -65,6 +65,7 @@ class MicrosoftTeamsApi
      * @param string $fileName
      * @param string $fileContents
      * @param array $requiredFields
+     * @param string $additionalNote
      * @return bool
      */
     public function uploadFile(
@@ -72,14 +73,15 @@ class MicrosoftTeamsApi
         string $fileName,
         string $fileContents,
         #[\SensitiveParameter]
-        array $requiredFields
+        array $requiredFields,
+        string $additionalNote = ''
     ): bool {
         $this->requiredFields = $requiredFields;
         $this->accessToken = $this->getAccessToken();
         if (!empty($this->accessToken)) {
             $uploadURL = $this->uploadFileToDriveAndGetLink($fileName, $fileContents);
             if (!empty($uploadURL)) {
-                return $this->sendMessageToTeamsChannel($subject . "<br><a href='$uploadURL'>$fileName</a>");
+                return $this->sendMessageToTeamsChannel($subject . "<br><a href='$uploadURL'>$fileName</a>" . (!empty($additionalNote) ? "<br><br>$additionalNote" : ''));
             }
         }
 
