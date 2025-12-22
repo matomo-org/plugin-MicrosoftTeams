@@ -90,7 +90,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function getReportParameters(&$availableParameters, $reportType)
     {
-        if (self::isSTeamsEvent($reportType)) {
+        if (self::isMSTeamsEvent($reportType)) {
             $availableParameters = self::$availableParameters;
         }
     }
@@ -107,7 +107,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function validateReportParameters(&$parameters, $reportType)
     {
-        if (!self::isSTeamsEvent($reportType)) {
+        if (!self::isMSTeamsEvent($reportType)) {
             return;
         }
 
@@ -161,7 +161,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function getReportFormats(&$reportFormats, $reportType)
     {
-        if (self::isSTeamsEvent($reportType)) {
+        if (self::isMSTeamsEvent($reportType)) {
             $reportFormats = array_merge($reportFormats, self::$managedReportFormats);
         }
     }
@@ -176,7 +176,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function allowMultipleReports(&$allowMultipleReports, $reportType)
     {
-        if (self::isSTeamsEvent($reportType)) {
+        if (self::isMSTeamsEvent($reportType)) {
             $allowMultipleReports = true;
         }
     }
@@ -192,7 +192,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function getReportMetadata(&$availableReportMetadata, $reportType, $idSite)
     {
-        if (! self::isSTeamsEvent($reportType)) {
+        if (! self::isMSTeamsEvent($reportType)) {
             return;
         }
 
@@ -214,7 +214,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function getReportRecipients(&$recipients, $reportType, $report)
     {
-        if (!self::isSTeamsEvent($reportType) || empty($report['parameters'][self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
+        if (!self::isMSTeamsEvent($reportType) || empty($report['parameters'][self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
             return;
         }
 
@@ -233,7 +233,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function processReports(&$processedReports, $reportType, $outputType, $report)
     {
-        if (! self::isSTeamsEvent($reportType)) {
+        if (! self::isMSTeamsEvent($reportType)) {
             return;
         }
 
@@ -257,7 +257,7 @@ class MicrosoftTeams extends \Piwik\Plugin
      */
     public function getRendererInstance(&$reportRenderer, $reportType, $outputType, $report)
     {
-        if (! self::isSTeamsEvent($reportType)) {
+        if (! self::isMSTeamsEvent($reportType)) {
             return;
         }
 
@@ -323,7 +323,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         $period,
         $force
     ) {
-        if (! self::isSTeamsEvent($reportType)) {
+        if (! self::isMSTeamsEvent($reportType)) {
             return;
         }
         $logger = StaticContainer::get(LoggerInterface::class);
@@ -468,7 +468,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         return '';
     }
 
-    private static function isSTeamsEvent($reportType): bool
+    private static function isMSTeamsEvent($reportType): bool
     {
         return in_array($reportType, array_keys(self::$managedReportTypes));
     }
