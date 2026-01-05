@@ -132,7 +132,7 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
     private function getRequiredFieldsLearnMoreTranslation(): array
     {
         return [
-            '<a href="https://matomo.org/?post_type=faq&p=89518&preview=true" target="_blank" rel="noopener noreferrer">',
+            '<a href="https://matomo.org/faq/reports/how-to-get-microsoft-teams-client-id-client-secret-tenant-id-and-teams-id/" target="_blank" rel="noopener noreferrer">',
             '</a>',
         ];
     }
