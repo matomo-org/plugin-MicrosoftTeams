@@ -69,7 +69,7 @@ export default defineComponent({
       );
     },
     getTeamsWebhookUrlHelpText() {
-      const link = 'https://matomo.org/?post_type=faq&p=89505&preview=true';
+      const link = 'https://matomo.org/faq/reports/how-to-get-microsoft-teams-webhook-url/';
       return translate(
         'MicrosoftTeams_TeamsEnterYourWebhookUrlText',
         `<a href="${link}" rel="noreferrer noopener" target="_blank">`,
