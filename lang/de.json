@@ -1,1 +1,7 @@
-{}
+{
+    "MicrosoftTeams": {
+        "IncomingWebhookRequiredErrorMessage": "Die Webhook-URL von Microsoft Teams darf nicht leer sein.",
+        "IncomingWebhookInvalidErrorMessage": "Ungültige Microsoft Teams Webhook Url.",
+        "TeamsWebhookUrl": "Microsoft Teams Webhook URL"
+    }
+}
