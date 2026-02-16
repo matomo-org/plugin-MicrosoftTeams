@@ -146,11 +146,73 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
     }
 
+    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlEmptyException3()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://127.0.0.1/test.com'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
+    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlEmptyException4()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://127.0.0.1'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrInvalidException()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'WEBHOOK_URL'];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlEmptyException2()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookRequiredErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => ''];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlEmptyException3()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://127.0.0.1/test.com'];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlEmptyException4()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://127.0.0.1'];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
     public function testValidateReportParametersMicrosoftTeamsShouldNotThrowAnyException()
     {
         $this->setRequiredFields();
         $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://WEBHOK_URL'];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+        $this->assertNotEmpty($parameters);
+    }
+
+    public function testValidateCustomAlertReportParametersMicrosoftTeamsShouldNotThrowAnyException()
+    {
+        $this->setRequiredFields();
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://WEBHOK_URL'];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [&$parameters, 'teams']);
         $this->assertNotEmpty($parameters);
     }
 
