@@ -2,22 +2,6 @@
     "MicrosoftTeams": {
         "IncomingWebhookRequiredErrorMessage": "Die Webhook-URL von Microsoft Teams darf nicht leer sein.",
         "IncomingWebhookInvalidErrorMessage": "Ungültige Microsoft Teams Webhook Url.",
-        "TeamsWebhookUrl": "Microsoft Teams Webhook URL",
-        "TenantIdDescription": "",
-        "MicrosoftTeamsAlertContent": "",
-        "ClientSecretTitle": "",
-        "ClientSecretExpiryDateDescription": "",
-        "PleaseFindYourReport": "",
-        "ClientIdTitle": "",
-        "ClientIdDescription": "",
-        "TeamIdTitle": "",
-        "TenantIdTitle": "",
-        "ClientSecretDescription": "",
-        "ClientSecretExpiryNote": "",
-        "ClientSecretExpiryDateTitle": "",
-        "RequiredFieldsNotSet": "",
-        "TeamsChannel": "",
-        "TeamsEnterYourWebhookUrlText": "",
-        "TeamIdDescription": ""
+        "TeamsWebhookUrl": "Microsoft Teams Webhook URL"
     }
 }
