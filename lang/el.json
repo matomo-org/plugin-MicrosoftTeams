@@ -17,6 +17,7 @@
         "TeamsEnterYourWebhookUrlText": "Εισαγάγετε τη διεύθυνση URL για το Microsoft Teams Webook. %1$sΜάθετε περισσότερα%2$s για το πώς να δείτε τη διεύθυνση UIRL Webhook.",
         "RequiredFieldsNotSet": "Τα απαιτούμενα πεδία για την αποστολή αρχείου δεν έχουν οριστεί. Παρακαλώ ορίστε τα %1$sεδώ%2$s.",
         "PleaseFindYourReport": "Εδώ είναι η αναφορά σας %1$s για το %2$s.",
-        "MicrosoftTeamsAlertContent": "Το %1$s έχει πυροδοτηθεί για τον ιστοτόπο %2$s ως η μετρική %3$s στην αναφορά %4$s %5$s."
+        "MicrosoftTeamsAlertContent": "Το %1$s έχει πυροδοτηθεί για τον ιστοτόπο %2$s ως η μετρική %3$s στην αναφορά %4$s %5$s.",
+        "ClientSecretExpiryNote": ""
     }
 }
