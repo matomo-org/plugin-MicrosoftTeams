@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.3 - 2026-03-26
+- Added code to ensure workflow webhook URL works as expected, as webhook URL is deprecated
+
 5.0.2 - 2026-02-16
 - Added code to disallow I/P as host in Microsoft Teams webhook URL
 
