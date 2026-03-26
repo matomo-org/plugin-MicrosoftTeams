@@ -139,6 +139,8 @@ class MicrosoftTeams extends \Piwik\Plugin
         } elseif (filter_var(parse_url($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER], PHP_URL_HOST), FILTER_VALIDATE_IP)) {
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
+
+        $parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER] = htmlspecialchars_decode($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
     }
 
     /**
@@ -372,6 +374,8 @@ class MicrosoftTeams extends \Piwik\Plugin
             } elseif (filter_var(parse_url($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER], PHP_URL_HOST), FILTER_VALIDATE_IP)) {
                 throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
             }
+
+            $parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER] = htmlspecialchars_decode($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
         }
     }
 

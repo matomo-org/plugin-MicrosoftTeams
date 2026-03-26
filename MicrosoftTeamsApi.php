@@ -183,7 +183,18 @@ class MicrosoftTeamsApi
             return false;
         }
 
-        return $response == '1';
+        $trimmed = trim((string) $response);
+
+        if ($trimmed === '' || $trimmed == '1') {
+            return true;
+        }
+
+        $decoded = json_decode($trimmed, true);
+        if (is_array($decoded) && (isset($decoded['error']) || isset($decoded['errors']))) {
+            return false;
+        }
+
+        return stripos($trimmed, 'error') === false;
     }
 
     /**
