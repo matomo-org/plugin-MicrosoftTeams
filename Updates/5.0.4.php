@@ -39,12 +39,12 @@ class Updates_5_0_4 extends Updates
         // Since this will be executed once, no need for translation
         $subject = 'Action required: Update MS Teams webhook in Matomo';
         $emailBody = <<<HTML
-            <p>Hi,</p>
-            <p>Microsoft is retiring O365 connectors, including MS Teams webhooks. Your Matomo instance currently uses webhooks for scheduled reports and/or custom alerts.</p>
-            <p>To make sure these reports and alerts keep working, you will need to replace the current webhooks with Power Automate workflow webhooks. Follow <a href="https://matomo.org/faq/reports/how-to-get-microsoft-teams-webhook-url/" target="_blank" rel="noreferrer noopener">this guide</a> to learn how to create the appropriate webhooks.</p>
-            <p>We recommend replacing these webhooks as soon as possible to ensure continued operations. The current webhooks should continue to work until <strong>30 April 2026.</strong></p>
-            <p>Happy Analytics!</p>
-            HTML;
+<p>Hi,</p>
+<p>Microsoft is retiring O365 connectors, including MS Teams webhooks. Your Matomo instance currently uses webhooks for scheduled reports and/or custom alerts.</p>
+<p>To make sure these reports and alerts keep working, you will need to replace the current webhooks with Power Automate workflow webhooks. Follow <a href="https://matomo.org/faq/reports/how-to-get-microsoft-teams-webhook-url/" target="_blank" rel="noreferrer noopener">this guide</a> to learn how to create the appropriate webhooks.</p>
+<p>We recommend replacing these webhooks as soon as possible to ensure continued operations. The current webhooks should continue to work until <strong>30 April 2026.</strong></p>
+<p>Happy Analytics!</p>
+HTML;
         foreach ($usersToAlert as $userEmail) {
             $mail = new Mail();
             $mail->setFrom($senderEmail, 'Matthieu from Matomo');
