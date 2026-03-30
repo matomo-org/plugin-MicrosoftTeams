@@ -9,7 +9,9 @@
 
 namespace Piwik\Plugins\MicrosoftTeams;
 
+use Piwik\Common;
 use Piwik\Container\StaticContainer;
+use Piwik\Db;
 use Piwik\Log\LoggerInterface;
 use Piwik\Option;
 use Piwik\Period;
@@ -57,6 +59,8 @@ class MicrosoftTeams extends \Piwik\Plugin
             'Translate.getClientSideTranslationKeys' => 'getClientSideTranslationKeys',
             'CustomAlerts.validateReportParameters' => 'validateCustomAlertReportParameters',
             'CustomAlerts.sendNewAlerts' => 'sendNewAlerts',
+            'AssetManager.getJavaScriptFiles' => 'getJsFiles',
+            'Template.jsGlobalVariables' => 'addJsGlobalVariables',
         ];
     }
 
@@ -64,6 +68,33 @@ class MicrosoftTeams extends \Piwik\Plugin
     public function requiresInternetConnection()
     {
         return true;
+    }
+
+    public function getJsFiles(&$jsFiles)
+    {
+        $jsFiles[] = "plugins/MicrosoftTeams/javascripts/alertNotification.js";
+    }
+
+    public function addJsGlobalVariables(&$out)
+    {
+        $request = \Piwik\Request::fromRequest();
+        $module = $request->getParameter('module');
+        $action  = $request->getParameter('action');
+        $shouldShowNotification = false;
+        $login = Piwik::getCurrentUserLogin();
+        $idSite = $request->getParameter('idSite');
+        if ($module === 'ScheduledReports' && $action === 'index' && $idSite) {
+            $table = Common::prefixTable('report');
+
+            $result = DB::fetchOne("SELECT count(type) FROM `$table` where type='teams' AND idsite=$idSite AND deleted=0 AND login='$login' AND parameters NOT LIKE '%powerautomate%'");
+            $shouldShowNotification = !empty($result);
+        } elseif ($module === 'CustomAlerts' && $action === 'index') {
+            $table = Common::prefixTable('alert');
+            $result = DB::fetchOne("Select count(idalert) from `$table` where login='$login' AND ms_teams_webhook_url NOT LIKE '%powerautomate%' AND report_mediums like '%teams%';");
+            $shouldShowNotification = !empty($result);
+        }
+
+        $out .= 'var msTeamsShouldShowWebhookNotification = ' . json_encode($shouldShowNotification) . ';';
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
@@ -78,6 +109,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         $translationKeys[] = 'MicrosoftTeams_TenantIdTitle';
         $translationKeys[] = 'MicrosoftTeams_TenantIdDescription';
         $translationKeys[] = 'MicrosoftTeams_TeamsEnterYourWebhookUrlText';
+        $translationKeys[] = 'MicrosoftTeams_MicrosoftTeamsWebhookUrlDeprecatedNoticeText';
     }
 
     /**

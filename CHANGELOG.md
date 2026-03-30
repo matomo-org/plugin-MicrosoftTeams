@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.4 - 2026-03-30
+- Added code to add notification if using deprecated Microsoft Teams webhook URL and also send an email via migration
+
 5.0.3 - 2026-03-26
 - Added code to ensure workflow webhook URL works as expected, as webhook URL is deprecated
 
