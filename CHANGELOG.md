@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.5 - 2026-03-30
+- Fixed exception when module, action and idsite is not defined when setting js variables
+
 5.0.4 - 2026-03-30
 - Added code to add notification if using deprecated Microsoft Teams webhook URL and also send an email via migration
 

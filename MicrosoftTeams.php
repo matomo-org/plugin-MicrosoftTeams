@@ -78,11 +78,11 @@ class MicrosoftTeams extends \Piwik\Plugin
     public function addJsGlobalVariables(&$out)
     {
         $request = \Piwik\Request::fromRequest();
-        $module = $request->getParameter('module');
-        $action  = $request->getParameter('action');
+        $module = $request->getParameter('module', '');
+        $action  = $request->getParameter('action', '');
         $shouldShowNotification = false;
         $login = Piwik::getCurrentUserLogin();
-        $idSite = $request->getParameter('idSite');
+        $idSite = $request->getParameter('idSite', '');
         if ($module === 'ScheduledReports' && $action === 'index' && $idSite) {
             $table = Common::prefixTable('report');
             $sql = "SELECT count(type) FROM `$table` WHERE type = ? AND idsite = ? AND deleted = 0 AND login = ?"
