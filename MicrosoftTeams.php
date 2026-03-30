@@ -85,12 +85,17 @@ class MicrosoftTeams extends \Piwik\Plugin
         $idSite = $request->getParameter('idSite');
         if ($module === 'ScheduledReports' && $action === 'index' && $idSite) {
             $table = Common::prefixTable('report');
-
-            $result = DB::fetchOne("SELECT count(type) FROM `$table` where type='teams' AND idsite=$idSite AND deleted=0 AND login='$login' AND parameters NOT LIKE '%powerautomate%'");
+            $sql = "SELECT count(type) FROM `$table` WHERE type = ? AND idsite = ? AND deleted = 0 AND login = ?"
+                . " AND parameters NOT LIKE ?";
+            $bind = [self::MS_TEAMS_TYPE, $idSite, $login, '%powerautomate%'];
+            $result = Db::fetchOne($sql, $bind);
             $shouldShowNotification = !empty($result);
         } elseif ($module === 'CustomAlerts' && $action === 'index') {
             $table = Common::prefixTable('alert');
-            $result = DB::fetchOne("Select count(idalert) from `$table` where login='$login' AND ms_teams_webhook_url NOT LIKE '%powerautomate%' AND report_mediums like '%teams%';");
+            $sql = "SELECT count(idalert) FROM `$table` WHERE login = ? AND ms_teams_webhook_url NOT LIKE ?"
+                . " AND report_mediums LIKE ?";
+            $bind = [$login, '%powerautomate%', '%teams%'];
+            $result = Db::fetchOne($sql, $bind);
             $shouldShowNotification = !empty($result);
         }
 
