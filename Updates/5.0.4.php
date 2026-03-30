@@ -15,7 +15,6 @@ use Piwik\Common;
 use Piwik\Db;
 use Piwik\Mail;
 use Piwik\Updater;
-use Piwik\Updater\Migration\Factory as MigrationFactory;
 use Piwik\Updates;
 
 /**
@@ -23,16 +22,6 @@ use Piwik\Updates;
  */
 class Updates_5_0_4 extends Updates
 {
-    /**
-     * @var MigrationFactory
-     */
-    private $migration;
-
-    public function __construct(MigrationFactory $factory)
-    {
-        $this->migration = $factory;
-    }
-
     /**
      * @throws Exception
      */
