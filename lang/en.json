@@ -19,6 +19,7 @@
         "PleaseFindYourReport": "Here is your %1$s report for %2$s.",
         "MicrosoftTeamsAlertContent": "%1$s has been triggered for website %2$s as the metric %3$s in report %4$s %5$s.",
         "ClientSecretExpiryNote": "%1$sNote:%2$s The client secret is scheduled to expire on %3$s. Please generate a new token and update it in Matomo to ensure uninterrupted scheduled reports.",
-        "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Your Microsoft Teams report is using an outdated webhook URL. Follow this %1$sguide%2$s to create a new one."
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Your Microsoft Teams report is using an outdated webhook URL. Follow this %1$sguide%2$s to create a new one.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Your Microsoft Teams alert is using an outdated webhook URL. Follow this %1$sguide%2$s to create a new one."
     }
 }

@@ -100,6 +100,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         }
 
         $out .= 'var msTeamsShouldShowWebhookNotification = ' . json_encode($shouldShowNotification) . ';';
+        $out .= 'var msTeamsAlertModule = ' . json_encode($module) . ';';
     }
 
     public function getClientSideTranslationKeys(&$translationKeys)
@@ -115,6 +116,7 @@ class MicrosoftTeams extends \Piwik\Plugin
         $translationKeys[] = 'MicrosoftTeams_TenantIdDescription';
         $translationKeys[] = 'MicrosoftTeams_TeamsEnterYourWebhookUrlText';
         $translationKeys[] = 'MicrosoftTeams_MicrosoftTeamsWebhookUrlDeprecatedNoticeText';
+        $translationKeys[] = 'MicrosoftTeams_MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts';
     }
 
     /**
