@@ -1,5 +1,8 @@
 ## Changelog
 
+5.0.6
+- Added code to harden the URL check for Microsoft Teams
+
 5.0.5 - 2026-03-30
 - Fixed exception when module, action and idsite is not defined when setting js variables
 

@@ -164,6 +164,15 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
     }
 
+    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIntegerLoopbackAlias()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://2130706433:18081/hook'];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
     public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrInvalidException()
     {
         $this->setRequiredFields();
@@ -197,6 +206,15 @@ class ScheduledReportsTest extends IntegrationTestCase
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://127.0.0.1'];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIntegerLoopbackAlias()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://2130706433:18081/hook'];
         Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
     }
 
