@@ -1,6 +1,6 @@
 ## Changelog
 
-5.0.6
+5.0.6 - 2025-04-27
 - Added code to harden the URL check for Microsoft Teams
 
 5.0.5 - 2026-03-30
