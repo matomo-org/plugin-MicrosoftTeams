@@ -424,6 +424,8 @@ class MicrosoftTeams extends \Piwik\Plugin
             return false;
         }
 
+        $host = trim($host, '[]');
+
         return filter_var($host, FILTER_VALIDATE_IP) !== false || ctype_digit($host);
     }
 
