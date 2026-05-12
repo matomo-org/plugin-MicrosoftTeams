@@ -17,6 +17,7 @@ use Piwik\Date;
 use Piwik\Mail;
 use Piwik\Piwik;
 use Piwik\Plugins\MicrosoftTeams\ClientSecretExpiryNotifier;
+use Piwik\Plugins\MicrosoftTeams\Emails\ClientSecretExpiryNotificationEmail;
 use Piwik\Plugins\MicrosoftTeams\MicrosoftTeams;
 use Piwik\Plugins\MicrosoftTeams\MicrosoftTeamsApi;
 use Piwik\Plugins\MicrosoftTeams\ScheduleReportMicrosoftTeams;
@@ -163,6 +164,20 @@ class ClientSecretExpiryNotifierTest extends IntegrationTestCase
         $this->assertStringContainsString('<p>', $emailsByRecipient[$this->email('owner1')]['html']);
         $this->assertStringContainsString('<br />', $emailsByRecipient[$this->email('owner1')]['html']);
         $this->assertStringContainsString('Please contact your Matomo superuser', $emailsByRecipient[$this->email('owner1')]['html']);
+    }
+
+    public function testHtmlEmailEscapesExpiryDatePlaceholder(): void
+    {
+        $email = new ClientSecretExpiryNotificationEmail(
+            $this->email('owner1'),
+            'Owner',
+            7,
+            '<script>alert("xss")</script>'
+        );
+
+        $this->assertStringContainsString('<script>alert("xss")</script>', $email->getBodyText());
+        $this->assertStringNotContainsString('<script>alert("xss")</script>', $email->getBodyHtml());
+        $this->assertStringContainsString('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;', $email->getBodyHtml());
     }
 
     public function testTeamsReportSenderShouldNotHaveClientSecretExpiryNoteHook(): void
