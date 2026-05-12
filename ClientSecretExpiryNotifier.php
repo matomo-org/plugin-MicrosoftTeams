@@ -17,6 +17,7 @@ use Piwik\Log\LoggerInterface;
 use Piwik\Plugins\MicrosoftTeams\Emails\ClientSecretExpiryNotificationEmail;
 use Piwik\Plugins\ScheduledReports\API as ScheduledReportsApi;
 use Piwik\Plugins\UsersManager\API as UsersManagerApi;
+use Piwik\Scheduler\Schedule\Schedule;
 
 class ClientSecretExpiryNotifier
 {
@@ -186,7 +187,7 @@ class ClientSecretExpiryNotifier
         $reports = [];
 
         foreach ($this->getScheduledReports() as $report) {
-            if ($report['type'] === MicrosoftTeams::MS_TEAMS_TYPE) {
+            if ($report['type'] === MicrosoftTeams::MS_TEAMS_TYPE && $report['period'] !== Schedule::PERIOD_NEVER) {
                 $reports[] = $report;
             }
         }

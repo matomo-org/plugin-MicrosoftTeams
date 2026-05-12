@@ -29,6 +29,7 @@ use Piwik\Plugins\SitesManager\API as SitesManagerApi;
 use Piwik\Plugins\UsersManager\API as UsersManagerApi;
 use Piwik\Plugins\UsersManager\Model as UsersManagerModel;
 use Piwik\Scheduler\Schedule\Daily;
+use Piwik\Scheduler\Schedule\Schedule;
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\Mock\FakeAccess;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
@@ -166,6 +167,18 @@ class ClientSecretExpiryNotifierTest extends IntegrationTestCase
         $this->assertStringContainsString('Please contact your Matomo superuser', $emailsByRecipient[$this->email('owner1')]['html']);
     }
 
+    public function testShouldSkipDisabledTeamsReportOwners(): void
+    {
+        $this->setExpiryDaysFromNow(7);
+        $this->addTeamsReport($this->login('owner1'), Schedule::PERIOD_NEVER);
+        $this->addTeamsReport($this->login('owner2'));
+
+        $this->notifier()->sendNotificationsIfDue();
+
+        $emailsByRecipient = $this->indexEmailsByRecipient();
+        $this->assertSame([$this->email('owner2'), $this->email('super1'), $this->email('super2')], array_keys($emailsByRecipient));
+    }
+
     public function testHtmlEmailEscapesExpiryDatePlaceholder(): void
     {
         $email = new ClientSecretExpiryNotificationEmail(
@@ -277,9 +290,9 @@ class ClientSecretExpiryNotifierTest extends IntegrationTestCase
             ->setValue(Date::today()->addDay($daysUntilExpiry)->toString());
     }
 
-    private function addTeamsReport(string $login): void
+    private function addTeamsReport(string $login, string $period = 'day'): void
     {
-        $this->addReport($login, MicrosoftTeams::MS_TEAMS_TYPE, [
+        $this->addReport($login, $period, MicrosoftTeams::MS_TEAMS_TYPE, [
             MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://example.org/webhook',
             ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DEFAULT_DISPLAY_FORMAT,
             ScheduledReports::EVOLUTION_GRAPH_PARAMETER => ScheduledReports::EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE,
@@ -288,7 +301,7 @@ class ClientSecretExpiryNotifierTest extends IntegrationTestCase
 
     private function addEmailReport(string $login): void
     {
-        $this->addReport($login, ScheduledReports::EMAIL_TYPE, [
+        $this->addReport($login, 'day', ScheduledReports::EMAIL_TYPE, [
             ScheduledReports::EMAIL_ME_PARAMETER => true,
             ScheduledReports::ADDITIONAL_EMAILS_PARAMETER => [],
             ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DEFAULT_DISPLAY_FORMAT,
@@ -296,12 +309,12 @@ class ClientSecretExpiryNotifierTest extends IntegrationTestCase
         ]);
     }
 
-    private function addReport(string $login, string $type, array $parameters): void
+    private function addReport(string $login, string $period, string $type, array $parameters): void
     {
         FakeAccess::$identity = $login;
         ScheduledReportsApi::$cache = [];
 
-        ScheduledReportsApi::getInstance()->addReport(1, 'description', 'day', 3, $type, 'pdf', [], $parameters);
+        ScheduledReportsApi::getInstance()->addReport(1, 'description', $period, 3, $type, 'pdf', [], $parameters);
 
         FakeAccess::$identity = $this->login('root');
     }
