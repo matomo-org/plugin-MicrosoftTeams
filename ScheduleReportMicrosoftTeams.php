@@ -11,10 +11,6 @@ declare(strict_types=1);
 
 namespace Piwik\Plugins\MicrosoftTeams;
 
-use Piwik\Container\StaticContainer;
-use Piwik\Log\LoggerInterface;
-use Piwik\Piwik;
-
 class ScheduleReportMicrosoftTeams
 {
     /**
@@ -60,32 +56,6 @@ class ScheduleReportMicrosoftTeams
     public function send(): bool
     {
         $microsoftTeamsApi = new MicrosoftTeamsApi($this->webhookUrl);
-        return $microsoftTeamsApi->uploadFile($this->subject, $this->fileName, $this->fileContents, $this->requiredFields, $this->getTokenExpiryNoteIfNearExpiring());
-    }
-
-    private function getTokenExpiryNoteIfNearExpiring(): string
-    {
-        $note = '';
-        $systemSettings = StaticContainer::get(SystemSettings::class);
-        $expiryDate = $systemSettings->clientSecretExpiryDate->getValue();
-        if (!$expiryDate) {
-            return $note;
-        }
-        $today = new \DateTime();
-        $expiry = new \DateTime($expiryDate);
-        $interval = $today->diff($expiry);
-
-        if ($expiry < $today) {
-            $logger = StaticContainer::get(LoggerInterface::class);
-            $logger->error('Client Secret Expired.');
-
-            return $note;
-        }
-
-        if ($interval->days <= 31) {
-            $note = Piwik::translate('MicrosoftTeams_ClientSecretExpiryNote', ['<strong>', '</strong>', $expiryDate]);
-        }
-
-        return $note;
+        return $microsoftTeamsApi->uploadFile($this->subject, $this->fileName, $this->fileContents, $this->requiredFields);
     }
 }
