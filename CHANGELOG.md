@@ -1,6 +1,6 @@
 ## Changelog
 
-5.0.7 - 2025-05-25
+5.1.0 - 2025-05-25
 - Replaced inline Microsoft Teams report expiry note with emails notices for client secret expiry.
 
 5.0.6 - 2025-04-27
