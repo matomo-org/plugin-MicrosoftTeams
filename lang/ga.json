@@ -18,5 +18,6 @@
         "RequiredFieldsNotSet": "Níl na réimsí riachtanacha chun comhad a sheoladh socraithe. Socraigh iad %1$shere%2$s le do thoil.",
         "PleaseFindYourReport": "Seo do thuairisc %1$s do %2$s.",
         "MicrosoftTeamsAlertContent": "Tá %1$s curtha i ngníomh don suíomh Gréasáin %2$s mar an mhéadrach %3$s sa tuarascáil %4$s %5$s.",
+        "ClientSecretExpiryNote": "%1$sNóta:%2$s Tá sé sceidealaithe go rachaidh rún an chliaint in éag ar %3$s. Gin comhartha nua agus nuashonraigh é i Matomo le cinntiú go mbeidh tuairiscí sceidealaithe gan bhriseadh ann."
     }
 }

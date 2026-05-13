@@ -18,5 +18,6 @@
         "RequiredFieldsNotSet": "S’janë plotësuar fushat e domosdoshme për dërgim kartele. Ju lutemi, ujdisini ato %1$skëtu%2$s.",
         "PleaseFindYourReport": "Ja raporti juaj %1$s për %2$s.",
         "MicrosoftTeamsAlertContent": "%1$s është vënë në punë për sajtin %2$s si vlera %3$s në raportin %4$s %5$s.",
+        "ClientSecretExpiryNote": "%1$sShënim:%2$s E fshehta e klientit është vënë të skadojë më %3$s. Ju lutemi, prodhoni një token të ri dhe përditësojeni te Matomo, që të garantohen raporte të pandërprerë të vënë në plan."
     }
 }
