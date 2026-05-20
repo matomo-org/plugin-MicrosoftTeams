@@ -1,5 +1,8 @@
 ## Changelog
 
+5.1.0 - 2025-05-25
+- Replaced inline Microsoft Teams report expiry note with emails notices for client secret expiry.
+
 5.0.6 - 2025-04-27
 - Added code to harden the URL check for Microsoft Teams
 

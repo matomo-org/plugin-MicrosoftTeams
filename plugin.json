@@ -1,7 +1,7 @@
 {
     "name": "MicrosoftTeams",
     "description": "Send Matomo reports and alerts to Microsoft Team channels, keeping your team informed and ready to act in real time.",
-    "version": "5.0.6",
+    "version": "5.1.0",
     "theme": false,
     "require": {
         "matomo": ">=5.7.0-alpha,<6.0.0-b1"
