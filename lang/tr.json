@@ -17,7 +17,6 @@
         "TeamsEnterYourWebhookUrlText": "Microsoft Teams internet kancası adresinizi yazın. %1$sİnternet kancası adresini nasıl alacağınız ile ilgili%2$s ayrıntılı bilgi alın.",
         "RequiredFieldsNotSet": "Bir dosya göndermek için gerekli alanlar ayarlanmamış. Lütfen %1$sburadan%2$s ayarlayın.",
         "PleaseFindYourReport": "%2$s için %1$s raporunuz.",
-        "MicrosoftTeamsAlertContent": "%1$s, %2$s sitesi için %4$s %5$s raporundaki %3$s ölçümü olarak tetiklendi.",
-        "ClientSecretExpiryNote": "%1$sNot:%2$s İstemci parolasının geçerlilik süresi %3$s tarihinde dolacak. Zamanlanmış raporların sürekliliğini sağlamak için lütfen yeni bir kod oluşturun ve Matomo üzerinden güncelleyin."
+        "MicrosoftTeamsAlertContent": "%1$s, %2$s sitesi için %4$s %5$s raporundaki %3$s ölçümü olarak tetiklendi."
     }
 }
