@@ -57,6 +57,13 @@ class CustomAlertsApiTest extends IntegrationTestCase
         $this->addAlert('webhookURL');
     }
 
+    public function testAddAlertShouldThrowExceptionIfMicrosoftTeamsWebhookUrlUsesIntegerLoopbackAlias()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $this->addAlert('http://2130706433:18081/hook');
+    }
+
     public function testAddAlertSuccess()
     {
         $id = $this->addAlert($msTeamsWebhookUrl = 'https://webhook.microsft.com/webhook');
@@ -80,6 +87,14 @@ class CustomAlertsApiTest extends IntegrationTestCase
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $idAlert = $this->addAlert('https://webhook.microsft.com/webhook');
         $this->updateAlert($idAlert, 'webhookURL');
+    }
+
+    public function testUpdateAlertShouldThrowExceptionIfMicrosoftTeamsWebhookUrlUsesIntegerLoopbackAlias()
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $idAlert = $this->addAlert('https://webhook.microsft.com/webhook');
+        $this->updateAlert($idAlert, 'http://2130706433:18081/hook');
     }
 
     public function testUpdateAlertSuccess()

@@ -17,6 +17,7 @@
             <property name="lineLimit" value="250" />
         </properties>
         <exclude-pattern>tests/*</exclude-pattern>
+        <exclude-pattern>Updates/*</exclude-pattern>
     </rule>
 
     <rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
