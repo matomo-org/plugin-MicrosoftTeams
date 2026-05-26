@@ -1,6 +1,10 @@
 {
     "MicrosoftTeams": {
         "IncomingWebhookRequiredErrorMessage": "L'URL du webhook Microsoft Teams ne peut pas être vide.",
-        "IncomingWebhookInvalidErrorMessage": "L’URL du Webhook Microsoft Teams n’est valide."
+        "IncomingWebhookInvalidErrorMessage": "L’URL du Webhook Microsoft Teams n’est valide.",
+        "ClientIdTitle": "Microsoft Client ID",
+        "ClientIdDescription": "Saisissez votre identifiant client Microsoft disponible sur la page Vue d'ensemble de l'application cliente. %1$sEn savoir plus%2$s.",
+        "ClientSecretTitle": "Microsoft Client Secret",
+        "ClientSecretExpiryDateTitle": "Date d'expiration du secret client Microsoft"
     }
 }
