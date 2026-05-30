@@ -19,6 +19,26 @@
         "ClientSecretExpiryEmailOwnerThreeWeeksBody": "Bonjour,\n\nCeci est un rappel que le secret client de Microsoft Teams utilisé pour vos rapports programmés expirera le %1$s.\n\nCela empêchera la livraison des rapports programmés à Microsoft Teams.\n\nVeuillez consulter votre superutilisateur Matomo pour vous assurer que le secret client est renouvelé à temps.\n\nL'équipe Matomo",
         "ClientSecretExpiryEmailOwnerThreeWeeksSubject": "Rappel : l'intégration de Microsoft Teams peut nécessiter une mise à jour",
         "ClientSecretExpiryEmailOwnerTwoWeeksBody": "Bonjour,\n\nLe secret client Microsoft Teams utilisé pour vos rapports programmés expirera le %1$s.\n\nPour éviter toute interruption, confirmez avec votre administrateur Matomo que le secret client sera mis à jour avant cette date.\n\nL'équipe Matomo",
-        "ClientSecretExpiryEmailOwnerTwoWeeksSubject": "Expiration prochaine : Vérifiez l'intégration de Microsoft Teams"
+        "ClientSecretExpiryEmailOwnerTwoWeeksSubject": "Expiration prochaine : Vérifiez l'intégration de Microsoft Teams",
+        "ClientSecretExpiryEmailSuperUserExpiredBody": "Bonjour,\n\nVotre secret client Microsoft Teams a maintenant expiré.\n\nMatomo ne peut plus envoyer d'alertes ou des rapports programmés à Microsoft Teams.\n\nPour restaurer l'intégration, générez un nouveau secret client et mettez à jour votre configuration.\n\nL'équipe Matomo",
+        "ClientSecretExpiryEmailSuperUserExpiredSubject": "Action requise : Le secret client Microsoft Teams a expiré",
+        "ClientSecretExpiryEmailSuperUserFourWeeksBody": "Bonjour,\n\nVotre secret client Microsoft Teams va expirer le %1$s.\n\nPour maintenir la connexion entre Matomo et Microsoft Teams, générez et configurez un nouveau secret client avant cette date.\n\nSi le secret expire, Matomo arrêtera d'envoyer des alertes et des rapports programmés à Microsoft Teams.\n\nNous vous recommandons de mettre à jour le secret client maintenant pour éviter toute interruption.\n\nL'équipe Matomo",
+        "ClientSecretExpiryEmailSuperUserFourWeeksSubject": "Le secret client Microsoft Teams expire dans 4 semaines",
+        "ClientSecretExpiryEmailSuperUserOneWeekBody": "Bonjour,\n\nVotre secret client Microsoft Teams expirera dans une semaine (%1$s).\n\nPour éviter toute perturbation des alertes et des rapports programmés, mettre à jour le secret client avant la date d'expiration.\n\nL'équipe Matomo",
+        "ClientSecretExpiryEmailSuperUserOneWeekSubject": "Rappel final : le secret client Microsoft Teams expire bientôt",
+        "ClientSecretExpiryEmailSuperUserThreeWeeksBody": "Bonjour,\n\nCeci est un rappel que votre secret client Microsoft Teams expirera le %1$s.\n\nMettez à jour le secret client avant cette date pour assurer que Matomo continue d'envoyer des alertes et des rapports programmés.\n\nSi aucune action n'est prise, l'intégration cessera de fonctionner après l'expiration.\n\nL'équipe Matomo",
+        "ClientSecretExpiryEmailSuperUserThreeWeeksSubject": "Le secret client Microsoft Teams expire dans 3 semaines",
+        "ClientSecretExpiryEmailSuperUserTwoWeeksBody": "Bonjour,\n\nVotre secret client Microsoft Teams expirera le %1$s.\n\nSi vous ne l'avez pas encore mis à jour, générez et configurez un nouveau secret client pour éviter les interruptions de votre intégration Microsoft Teams.\n\nL'équipe Matomo",
+        "ClientSecretExpiryEmailSuperUserTwoWeeksSubject": "Expiration prochaine : Secret client Microsoft Teams",
+        "TenantIdTitle": "ID de locataire Microsoft",
+        "TenantIdDescription": "Entrez votre ID de locataire Microsoft que vous trouverez sur la page de vue d'ensemble de l'application client. %1$sEn savoir plus%2$s.",
+        "TeamIdTitle": "ID de Microsoft Teams",
+        "TeamIdDescription": "Entrez votre identifiant Microsoft Teams. %1$sEn savoir plus%2$s.",
+        "TeamsEnterYourWebhookUrlText": "Entrez votre URL de Webhook Microsoft Teams. %1$sEn savoir plus%2$s sur comment obtenir l'URL du Webhook.",
+        "RequiredFieldsNotSet": "Les champs requis pour envoyer un fichier ne sont pas définis. S'il vous plaît, définissez-les %1$sici%2$s.",
+        "PleaseFindYourReport": "Voici votre %1$s rapport pour %2$s.",
+        "MicrosoftTeamsAlertContent": "%1$s a été déclenché pour le site web %2$s comme la métrique %3$s dans le rapport %4$s %5$s.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Votre rapport Microsoft Teams utilise une URL de webhook obsolète. Suivez ce %1$sguide%2$s pour en créer un nouveau.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Votre alerte Microsoft Teams utilise une URL de webhook obsolète. Suivez ce %1$sguide%2$s pour en créer une nouvelle."
     }
 }
