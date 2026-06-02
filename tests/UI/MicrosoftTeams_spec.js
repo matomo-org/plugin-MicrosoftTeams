@@ -82,7 +82,7 @@
     testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_report_error', async () => {
-      await page.type('textarea#report_description', 'teams Report');
+      await page.type('input#report_description', 'teams Report');
       await page.evaluate(() => $('#teamsVisitsSummary_get').click());
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
@@ -104,7 +104,7 @@
     await captureScreen('teams_report_pdf_view', async () => {
       await page.evaluate(() => $('#add-report').click());
       await page.waitForNetworkIdle();
-      await page.type('textarea#report_description', 'teams Report PDF');
+      await page.type('input#report_description', 'teams Report PDF');
       await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
     }, selector);
