@@ -25,6 +25,20 @@
     expect(await page.screenshotSelector(selector)).to.matchImage(screenshotName);
   }
 
+  async function openReportTypeSelect() {
+    await page.evaluate(() => {
+      const reportTypeField = $('#addEditReport select[name="report_type"]').closest('.matomo-form-field');
+      reportTypeField.find('input.select-dropdown')[0].click();
+    });
+  }
+
+  async function selectMicrosoftTeamsReportType() {
+    await page.evaluate(() => {
+      const reportTypeField = $('#addEditReport select[name="report_type"]').closest('.matomo-form-field');
+      reportTypeField.find('ul li:last').click();
+    });
+  }
+
   it('should load the schedule report as empty', async function () {
     const selector = '.page';
     await captureScreen('empty_report', async () => {
@@ -43,14 +57,14 @@
   it('should show send report via MicrosoftTeams as an option', async function () {
     const selector = '.page';
     await captureScreen('send_via_teams_new', async () => {
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
+      await openReportTypeSelect();
     }, selector);
   });
 
   it('should show MicrosoftTeams webhookURL input as disabled as required fields not set', async function () {
     const selector = '.page';
     await captureScreen('teams_report_disabled', async () => {
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await selectMicrosoftTeamsReportType();
     }, selector);
   });
 
@@ -70,8 +84,8 @@
     await captureScreen('teams_report_enabled', async () => {
       await page.evaluate(() => $('#add-report').click());
       await page.waitForNetworkIdle();
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await openReportTypeSelect();
+      await selectMicrosoftTeamsReportType();
       await page.evaluate(() => $('#addEditReport .matomo-form-field.teams:eq(0) input')[0].click());
       await page.evaluate(() => $('#addEditReport .matomo-form-field.teams:eq(0) li:eq(1)').click());
     }, selector);
@@ -82,7 +96,7 @@
     testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_report_error', async () => {
-      await page.type('textarea#report_description', 'teams Report');
+      await page.type('input#report_description', 'teams Report');
       await page.evaluate(() => $('#teamsVisitsSummary_get').click());
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
@@ -104,9 +118,9 @@
     await captureScreen('teams_report_pdf_view', async () => {
       await page.evaluate(() => $('#add-report').click());
       await page.waitForNetworkIdle();
-      await page.type('textarea#report_description', 'teams Report PDF');
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) input')[0].click());
-      await page.evaluate(() => $('#addEditReport .matomo-form-field:eq(6) ul li:last').click());
+      await page.type('input#report_description', 'teams Report PDF');
+      await openReportTypeSelect();
+      await selectMicrosoftTeamsReportType();
     }, selector);
   });
 
