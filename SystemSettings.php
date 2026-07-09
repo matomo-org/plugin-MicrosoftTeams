@@ -11,6 +11,7 @@ namespace Piwik\Plugins\MicrosoftTeams;
 
 use Piwik\Piwik;
 use Piwik\Plugins\Marketplace\Api\Exception;
+use Piwik\Plugins\MicrosoftTeams\Settings\EncryptedSystemSetting;
 use Piwik\Settings\Setting;
 use Piwik\Settings\FieldConfig;
 
@@ -43,7 +44,8 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
 
     private function createClientIdSetting()
     {
-        return $this->makeSetting('teamsClientID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSystemSetting('teamsClientID', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_ClientIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
@@ -51,11 +53,16 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+
+        $this->addSetting($setting);
+
+        return $setting;
     }
 
     private function createClientSecretSetting()
     {
-        return $this->makeSetting('teamsClientSecret', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSystemSetting('teamsClientSecret', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_ClientSecretTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $field->inlineHelp = Piwik::translate('MicrosoftTeams_ClientSecretDescription', $this->getRequiredFieldsLearnMoreTranslation());
@@ -63,11 +70,16 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+
+        $this->addSetting($setting);
+
+        return $setting;
     }
 
     private function createClientSecretExpiryDateSetting()
     {
-        return $this->makeSetting('teamsClientSecretExpiryDate', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSystemSetting('teamsClientSecretExpiryDate', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_ClientSecretExpiryDateTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_TEXT;
             $field->uiControlAttributes = ['placeholder' => 'YYYY-MM-DD'];
@@ -85,11 +97,16 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+
+        $this->addSetting($setting);
+
+        return $setting;
     }
 
     private function createTenantIdSetting()
     {
-        return $this->makeSetting('teamsTenantID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSystemSetting('teamsTenantID', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_TenantIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $field->inlineHelp = Piwik::translate('MicrosoftTeams_TenantIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
@@ -97,11 +114,16 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+
+        $this->addSetting($setting);
+
+        return $setting;
     }
 
     private function createTeamIdSetting()
     {
-        return $this->makeSetting('teamsTeamID', $default = '', FieldConfig::TYPE_STRING, function (FieldConfig $field) {
+        $setting = new EncryptedSystemSetting('teamsTeamID', $default = '', FieldConfig::TYPE_STRING, $this->pluginName);
+        $setting->setConfigureCallback(function (FieldConfig $field) {
             $field->title = Piwik::translate('MicrosoftTeams_TeamIdTitle');
             $field->uiControl = FieldConfig::UI_CONTROL_PASSWORD;
             $field->inlineHelp = Piwik::translate('MicrosoftTeams_TeamIdDescription', $this->getRequiredFieldsLearnMoreTranslation());
@@ -109,6 +131,10 @@ class SystemSettings extends \Piwik\Settings\Plugin\SystemSettings
                 return trim($value);
             };
         });
+
+        $this->addSetting($setting);
+
+        return $setting;
     }
 
     public function isRequiredFieldsSet(): bool

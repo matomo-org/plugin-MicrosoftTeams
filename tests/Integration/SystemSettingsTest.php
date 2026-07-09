@@ -9,6 +9,10 @@
 
 namespace Piwik\Plugins\MicrosoftTeams\tests;
 
+use Piwik\Common;
+use Piwik\Db;
+use Piwik\Plugins\MicrosoftTeams\Configuration;
+use Piwik\Plugins\MicrosoftTeams\Encryption;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
 use Piwik\Plugins\MicrosoftTeams\SystemSettings;
 use Piwik\Tests\Framework\Fixture;
@@ -50,11 +54,18 @@ class SystemSettingsTest extends IntegrationTestCase
         $this->settings->clientSecret->setValue('clientSecret');
         $this->settings->tenantID->setValue('tenantID');
         $this->settings->teamID->setValue('teamID');
+
         $this->assertEquals('clientID', $this->settings->clientID->getValue());
         $this->assertEquals('clientSecret', $this->settings->clientSecret->getValue());
         $this->assertEquals('tenantID', $this->settings->tenantID->getValue());
         $this->assertEquals('teamID', $this->settings->teamID->getValue());
         $this->assertEmpty($this->settings->clientSecretExpiryDate->getValue());
+        $this->assertSettingsAreEncryptedInStorage([
+            'teamsClientID' => 'clientID',
+            'teamsClientSecret' => 'clientSecret',
+            'teamsTenantID' => 'tenantID',
+            'teamsTeamID' => 'teamID',
+        ]);
     }
 
     public function testMicrosoftTeamsClientSecretExpiryDateException()
@@ -75,11 +86,42 @@ class SystemSettingsTest extends IntegrationTestCase
     {
         $this->settings->clientSecretExpiryDate->setValue('2025-11-20 ');
         $this->assertEquals('2025-11-20', $this->settings->clientSecretExpiryDate->getValue());
+        $this->assertSettingsAreEncryptedInStorage([
+            'teamsClientSecretExpiryDate' => '2025-11-20',
+        ]);
     }
 
     public function testMicrosoftTeamsClientSecretExpiryDateSuccess2()
     {
         $this->settings->clientSecretExpiryDate->setValue('2025-11-21');
         $this->assertEquals('2025-11-21', $this->settings->clientSecretExpiryDate->getValue());
+        $this->assertSettingsAreEncryptedInStorage([
+            'teamsClientSecretExpiryDate' => '2025-11-21',
+        ]);
+    }
+
+    private function assertSettingsAreEncryptedInStorage(array $expectedSettings): void
+    {
+        $table = Common::prefixTable('plugin_setting');
+        $rows = Db::fetchAll(
+            'SELECT `setting_name`, `setting_value` FROM ' . $table . ' WHERE `plugin_name` = ? AND `user_login` = ?',
+            ['MicrosoftTeams', '']
+        );
+
+        $storedValues = [];
+        foreach ($rows as $row) {
+            $storedValues[$row['setting_name']] = $row['setting_value'];
+        }
+
+        $configuration = new Configuration();
+        $configuration->install();
+        $encryption = new Encryption($configuration);
+
+        foreach ($expectedSettings as $name => $plaintextValue) {
+            $this->assertArrayHasKey($name, $storedValues);
+            $this->assertNotSame($plaintextValue, $storedValues[$name]);
+            $this->assertTrue($encryption->isEncrypted($storedValues[$name]));
+            $this->assertSame($plaintextValue, $encryption->decryptString($storedValues[$name]));
+        }
     }
 }
