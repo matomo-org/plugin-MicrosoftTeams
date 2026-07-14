@@ -179,6 +179,8 @@ class MicrosoftTeams extends \Piwik\Plugin
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
 
+        $this->assertWebhookDestinationAllowed($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
+
         $parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER] = htmlspecialchars_decode($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
     }
 
@@ -414,6 +416,8 @@ class MicrosoftTeams extends \Piwik\Plugin
                 throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
             }
 
+            $this->assertWebhookDestinationAllowed($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
+
             $parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER] = htmlspecialchars_decode($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
         }
     }
@@ -427,6 +431,52 @@ class MicrosoftTeams extends \Piwik\Plugin
         $host = trim($host, '[]');
 
         return filter_var($host, FILTER_VALIDATE_IP) !== false || ctype_digit($host);
+    }
+
+    /**
+     * Reject webhook destinations that point back at this Matomo instance.
+     *
+     * A Teams webhook is passed to Http::sendHttpRequestBy() when the report is sent.
+     * On Matomo for WordPress the outgoing request is intercepted by a hook that runs
+     * URLs "looking like" an archive request as a superuser API call. A view user who
+     * can create a scheduled report could therefore aim the webhook at the Matomo host
+     * itself and have crafted API calls executed with superuser privileges (SSRF ->
+     * privilege escalation). Blocking self-targeting webhooks removes that reachable
+     * sink for stored webhooks.
+     *
+     * Note: this is a store-time check, so it does not neutralise webhooks that were
+     * already saved before this fix. The underlying superuser-dispatch flaw must also
+     * be fixed in Matomo for WordPress.
+     *
+     * @param string $webhookUrl
+     * @return void
+     * @throws \Exception
+     */
+    private function assertWebhookDestinationAllowed(string $webhookUrl): void
+    {
+        $host = parse_url($webhookUrl, PHP_URL_HOST);
+        if (empty($host)) {
+            return;
+        }
+
+        $host = trim($host, '[]');
+
+        if ($this->isLocalMatomoHost($host)) {
+            throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
+        }
+    }
+
+    private function isLocalMatomoHost(string $host): bool
+    {
+        $host = strtolower($host);
+
+        if (in_array($host, ['localhost', 'localhost.localdomain', 'ip6-localhost'], true)) {
+            return true;
+        }
+
+        $matomoHost = parse_url(SettingsPiwik::getPiwikUrl(), PHP_URL_HOST);
+
+        return !empty($matomoHost) && strcasecmp(trim($matomoHost, '[]'), $host) === 0;
     }
 
     /**
