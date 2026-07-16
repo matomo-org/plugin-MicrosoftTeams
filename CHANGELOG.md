@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.0 - 2026-07-20
+- Encrypted Microsoft Teams system settings and added a migration for existing plaintext values.
+
 5.1.0 - 2025-05-25
 - Replaced inline Microsoft Teams report expiry note with emails notices for client secret expiry.
 
