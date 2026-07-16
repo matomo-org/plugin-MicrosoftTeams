@@ -42,6 +42,11 @@ class MicrosoftTeams extends \Piwik\Plugin
         ReportRenderer::TSV_FORMAT => 'plugins/Morpheus/images/export.png',
     );
 
+    public function install()
+    {
+        (new Configuration())->install();
+    }
+
     public function registerEvents()
     {
         return [
