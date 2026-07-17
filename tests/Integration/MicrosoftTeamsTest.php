@@ -188,6 +188,49 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
     }
 
+    public function testValidateReportParametersShouldRejectLocalhostWebhook()
+    {
+        $this->setRequiredFields();
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [
+            ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY,
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://localhost/webhook',
+        ];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
+    public function testValidateReportParametersShouldRejectWebhookTargetingMatomoHost()
+    {
+        $this->setRequiredFields();
+        \Piwik\Option::set('piwikUrl', 'https://victim.example/');
+
+        $craftedWebhook = 'https://victim.example/wp-admin/admin.php?page=matomo-reporting'
+            . '&module=API&method=API.get&trigger=archivephp&method=API.getBulkRequest'
+            . '&urls[]=method%3DPrivacyManager.executeDataPurge';
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [
+            ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY,
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => $craftedWebhook,
+        ];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
+    public function testValidateCustomAlertReportParametersShouldRejectWebhookTargetingMatomoHost()
+    {
+        $this->setRequiredFields();
+        \Piwik\Option::set('piwikUrl', 'https://victim.example/');
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://victim.example/wp-admin/admin.php?module=API&method=API.get&trigger=archivephp',
+        ];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
     public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrInvalidException()
     {
         $this->setRequiredFields();
