@@ -438,25 +438,6 @@ class MicrosoftTeams extends \Piwik\Plugin
         return filter_var($host, FILTER_VALIDATE_IP) !== false || ctype_digit($host);
     }
 
-    /**
-     * Reject webhook destinations that point back at this Matomo instance.
-     *
-     * A Teams webhook is passed to Http::sendHttpRequestBy() when the report is sent.
-     * On Matomo for WordPress the outgoing request is intercepted by a hook that runs
-     * URLs "looking like" an archive request as a superuser API call. A view user who
-     * can create a scheduled report could therefore aim the webhook at the Matomo host
-     * itself and have crafted API calls executed with superuser privileges (SSRF ->
-     * privilege escalation). Blocking self-targeting webhooks removes that reachable
-     * sink for stored webhooks.
-     *
-     * Note: this is a store-time check, so it does not neutralise webhooks that were
-     * already saved before this fix. The underlying superuser-dispatch flaw must also
-     * be fixed in Matomo for WordPress.
-     *
-     * @param string $webhookUrl
-     * @return void
-     * @throws \Exception
-     */
     private function assertWebhookDestinationAllowed(string $webhookUrl): void
     {
         $host = parse_url($webhookUrl, PHP_URL_HOST);

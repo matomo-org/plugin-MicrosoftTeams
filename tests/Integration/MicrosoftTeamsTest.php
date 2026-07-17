@@ -200,11 +200,6 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
     }
 
-    /**
-     * Regression test for the SSRF -> superuser dispatch chain: a view user must not be
-     * able to store a webhook that points back at the Matomo host and smuggles a crafted
-     * API request (module=API&method=API.get...&method=API.getBulkRequest).
-     */
     public function testValidateReportParametersShouldRejectWebhookTargetingMatomoHost()
     {
         $this->setRequiredFields();
