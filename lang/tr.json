@@ -39,6 +39,9 @@
         "ClientSecretExpiryEmailSuperUserTwoWeeksBody": "Merhaba,\n\nMicrosoft Teams istemci parolanızın geçerlilik süresi %1$s tarihinde dolacak.\n\nHenüz güncellemediyseniz, Microsoft Teams bütünleştirmenizin kesintiye uğramaması için yeni bir istemci parolası oluşturun ve yapılandırın.\n\nMatomo Ekibi",
         "ClientSecretExpiryEmailSuperUserTwoWeeksSubject": "Geçerlilik süresinin sonu yaklaşıyor: Microsoft Teams istemci parolası",
         "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Microsoft Teams raporunuz güncel olmayan bir internet kancası adresi kullanıyor. Yeni bir tane oluşturmak için bu %1$srehberi%2$s izleyebilirsiniz.",
-        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Microsoft Teams uyarınız güncel olmayan bir internet kancası adresi kullanıyor. Yeni bir tane oluşturmak için bu %1$srehberi%2$s izleyebilirsiniz."
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Microsoft Teams uyarınız güncel olmayan bir internet kancası adresi kullanıyor. Yeni bir tane oluşturmak için bu %1$srehberi%2$s izleyebilirsiniz.",
+        "EncryptionFailed": "Microsoft Teams kimlik doğrulama bilgileri şifrelenemedi.",
+        "EncryptionKeyInvalid": "Microsoft Teams şifreleme anahtarı eksik veya geçersiz.",
+        "EncryptionOpenSslRequired": "Microsoft Teams kimlik doğrulama bilgilerini şifrelemek veya şifresini çözmek için OpenSSL gereklidir."
     }
 }

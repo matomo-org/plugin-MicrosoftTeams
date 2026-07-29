@@ -39,6 +39,9 @@
         "ClientSecretExpiryEmailSuperUserTwoWeeksBody": "Haigh,\n\nRachaidh rún do chliaint Microsoft Teams in éag ar %1$s.\n\nMura bhfuil sé nuashonraithe agat fós, gin agus cumraigh rún cliaint nua chun cur isteach ar chomhtháthú Microsoft Teams a sheachaint.\n\nFoireann Matomo",
         "ClientSecretExpiryEmailSuperUserTwoWeeksSubject": "Dáta éaga atá le teacht: rún cliant Microsoft Teams",
         "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Tá URL crúca gréasáin atá as dáta á úsáid ag do thuairisc Microsoft Teams. Lean an treoir %1$s seo chun ceann nua a chruthú.",
-        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Tá URL crúca gréasáin atá as dáta á úsáid ag d’fholáireamh Microsoft Teams. Lean an %1$sguide%2$s seo chun ceann nua a chruthú."
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Tá URL crúca gréasáin atá as dáta á úsáid ag d’fholáireamh Microsoft Teams. Lean an %1$sguide%2$s seo chun ceann nua a chruthú.",
+        "EncryptionFailed": "Theip ar chriptiú dintiúir Microsoft Teams.",
+        "EncryptionKeyInvalid": "Tá eochair chriptithe Microsoft Teams ar iarraidh nó neamhbhailí.",
+        "EncryptionOpenSslRequired": "Tá OpenSSL ag teastáil chun dintiúir Microsoft Teams a chriptiú nó a dhíchriptiú."
     }
 }
