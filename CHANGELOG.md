@@ -1,5 +1,8 @@
 ## Changelog
 
+6.0.0 - 2026-08-10
+- Compatibility with Matomo 6
+
 5.2.0 - 2026-07-20
 - Encrypted Microsoft Teams system settings and added a migration for existing plaintext values.
 - Added code to harden the URL check for Microsoft Teams
