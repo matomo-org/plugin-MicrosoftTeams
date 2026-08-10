@@ -252,7 +252,8 @@ class ClientSecretExpiryNotifier
             return;
         }
 
-        $recipients[$user['email']] = $user['email'];
+        $email = (string) $user['email'];
+        $recipients[$email] = $email;
     }
 
     /**
