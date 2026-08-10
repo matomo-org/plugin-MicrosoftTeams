@@ -1,1 +1,3 @@
 .codex
+/vue/dist/*.umd.js
+/vue/dist/*.map
