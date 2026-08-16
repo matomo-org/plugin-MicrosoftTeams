@@ -40,6 +40,8 @@
         "ClientSecretExpiryEmailSuperUserTwoWeeksSubject": "Επερχόμενη λήξη: Το μυστικό πελάτη για το Microsoft Teams",
         "EncryptionFailed": "Αδύνατη η κρυπτογράφηση των διαπιστευτηρίων για το Microsoft Teams.",
         "EncryptionKeyInvalid": "Το κλειδί κρυπτογράφησης για το Microsoft Teams λείπει ή είναι μη έγκυρο.",
-        "EncryptionOpenSslRequired": "Το OpenSSL απαιτείται για την κρυπτογράφηση ή αποκρυπτογράφηση των διαπιστευτηρίων για το Microsoft Teams."
+        "EncryptionOpenSslRequired": "Το OpenSSL απαιτείται για την κρυπτογράφηση ή αποκρυπτογράφηση των διαπιστευτηρίων για το Microsoft Teams.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Η αναφορά σας στο Microsoft Teams χρησιμοποιεί μια παρωχημένη διεύθυνση webhook URL. Ακολουθήστε τον %1$sοδηγό%2$s για να δημιουργήσετε μια νέα.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Η ειδοποίησή σας στο Microsoft Teams χρησιμοποιεί μια παρωχημένη διεύθυνση webhook URL. Ακολουθήστε τον %1$sοδηγό%2$s για να δημιουργήσετε μια νέα."
     }
 }
