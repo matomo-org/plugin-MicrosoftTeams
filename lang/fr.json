@@ -39,6 +39,9 @@
         "PleaseFindYourReport": "Voici votre %1$s rapport pour %2$s.",
         "MicrosoftTeamsAlertContent": "%1$s a été déclenché pour le site web %2$s comme la métrique %3$s dans le rapport %4$s %5$s.",
         "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Votre rapport Microsoft Teams utilise une URL de webhook obsolète. Suivez ce %1$sguide%2$s pour en créer un nouveau.",
-        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Votre alerte Microsoft Teams utilise une URL de webhook obsolète. Suivez ce %1$sguide%2$s pour en créer une nouvelle."
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Votre alerte Microsoft Teams utilise une URL de webhook obsolète. Suivez ce %1$sguide%2$s pour en créer une nouvelle.",
+        "EncryptionFailed": "Echec du cryptage des identifiants Microsoft Teams.",
+        "EncryptionKeyInvalid": "La clé de chiffrement Microsoft Teams est manquante ou invalide.",
+        "EncryptionOpenSslRequired": "OpenSSL est nécessaire pour chiffrer ou décrypter les identifiants Microsoft Teams."
     }
 }
