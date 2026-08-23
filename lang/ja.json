@@ -1,1 +1,14 @@
-{}
+{
+    "MicrosoftTeams": {
+        "IncomingWebhookRequiredErrorMessage": "Microsoft TeamsのWebhook URLは空にできません。",
+        "IncomingWebhookInvalidErrorMessage": "無効な Microsoft Teams の Webhook URL です。",
+        "TeamsWebhookUrl": "Microsoft Teams のWebhook URL",
+        "TeamsChannel": "Microsoft Teams のチャンネル",
+        "ClientIdTitle": "Microsoft クライアントID",
+        "ClientIdDescription": "クライアントアプリの概要ページで見つけた Microsoft クライアント ID を入力してください。%1$s詳細はこちら%2$s。",
+        "ClientSecretTitle": "Microsoft クライアント シークレット",
+        "ClientSecretExpiryDateTitle": "Microsoft クライアントシークレットの有効期限",
+        "ClientSecretExpiryDateDescription": "任意です。YYYY-MM-DD形式で有効期限を設定すると、期限が近づいたときに通知を受け取れます。",
+        "ClientSecretExpiryEmailOwnerExpiredBody": "こんにちは、\n\nMicrosoft Teams に送信される予定のレポートは、今後配信されなくなります。\n\nMicrosoft Teams のクライアントシークレットの有効期限が切れています。統合を復元するには、Matomo のスーパーユーザーが新しいクライアントシークレットを生成して設定する必要があります。\n\nMatomo のスーパーユーザーに連絡してください。\n\nMatomo チーム"
+    }
+}
