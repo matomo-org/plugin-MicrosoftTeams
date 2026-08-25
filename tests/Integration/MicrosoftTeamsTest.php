@@ -164,15 +164,6 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
     }
 
-    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIntegerLoopbackAlias()
-    {
-        $this->setRequiredFields();
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
-        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://2130706433:18081/hook'];
-        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
-    }
-
     /**
      * @dataProvider provideWebhookUrlsWithIpHosts
      */
@@ -267,15 +258,6 @@ class ScheduledReportsTest extends IntegrationTestCase
         Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
     }
 
-    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIntegerLoopbackAlias()
-    {
-        $this->setRequiredFields();
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
-        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://2130706433:18081/hook'];
-        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
-    }
-
     /**
      * @dataProvider provideWebhookUrlsWithIpHosts
      */
@@ -304,6 +286,55 @@ class ScheduledReportsTest extends IntegrationTestCase
         $this->assertNotEmpty($parameters);
     }
 
+    /**
+     * @dataProvider provideWebhookUrlsSpellingALocalHostDifferently
+     */
+    public function testValidateReportParametersShouldRejectWebhookSpellingALocalHostDifferently($webhookUrl)
+    {
+        $this->setRequiredFields();
+        \Piwik\Option::set('piwikUrl', 'https://victim.example/');
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [
+            ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY,
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => $webhookUrl,
+        ];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
+    /**
+     * @dataProvider provideWebhookUrlsSpellingALocalHostDifferently
+     */
+    public function testValidateCustomAlertReportParametersShouldRejectWebhookSpellingALocalHostDifferently($webhookUrl)
+    {
+        $this->setRequiredFields();
+        \Piwik\Option::set('piwikUrl', 'https://victim.example/');
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => $webhookUrl];
+        Piwik::postEvent('CustomAlerts.validateReportParameters', [$parameters, 'teams']);
+    }
+
+    public function testValidateReportParametersShouldRejectInternationalisedSpellingOfTheMatomoHost()
+    {
+        if (!function_exists('idn_to_ascii')) {
+            $this->markTestSkipped('the intl extension is needed to fold an internationalised host name');
+        }
+
+        $this->setRequiredFields();
+        \Piwik\Option::set('piwikUrl', 'https://xn--exmple-cua.test/');
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
+        $parameters = [
+            ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY,
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://exämple.test/hook',
+        ];
+        Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
+    }
+
     public function testValidateReportParametersMicrosoftTeamsShouldNotThrowAnyException2()
     {
         $this->setRequiredFields();
@@ -315,9 +346,24 @@ class ScheduledReportsTest extends IntegrationTestCase
     public function provideWebhookUrlsWithIpHosts()
     {
         return [
-            'ipv4' => ['https://8.8.8.8/hook'],
-            'ipv4' => ['https://10.6.4.2'],
-            'ipv6' => ['https://[2001:4860:4860::8888]/hook'],
+            'public ipv4' => ['https://8.8.8.8/hook'],
+            'private ipv4' => ['https://10.6.4.2'],
+            'public ipv6' => ['https://[2001:4860:4860::8888]/hook'],
+            'link local ipv6' => ['https://[fe80::1]/hook'],
+            'ipv4 mapped ipv6' => ['https://[::ffff:169.254.169.254]/hook'],
+            // forms libc resolves as an address literal through inet_aton
+            'integer loopback alias' => ['http://2130706433:18081/hook'],
+            'hexadecimal loopback alias' => ['http://0x7f000001/hook'],
+            'shortened loopback alias' => ['http://127.1/hook'],
+        ];
+    }
+
+    public function provideWebhookUrlsSpellingALocalHostDifferently()
+    {
+        return [
+            'uppercase localhost' => ['https://LOCALHOST/hook'],
+            'localhost with a trailing dot' => ['https://localhost./hook'],
+            'matomo host in another case and with a trailing dot' => ['https://VICTIM.Example./hook'],
         ];
     }
 

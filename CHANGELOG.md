@@ -1,5 +1,9 @@
 ## Changelog
 
+6.0.1
+- Send Microsoft Teams webhook messages over Matomo's SSRF safe fetch path, so the webhook host must resolve to a public address, the connection is pinned to the validated address and every redirect is revalidated. This request now needs curl and cannot be routed through a configured outgoing proxy, and private ranges have to be allowed with the `[General] allowed_private_egress_ranges` setting.
+- Rejected further webhook URLs that point at the Matomo installation itself, such as encoded address literals (`127.1`, `0x7f000001`) and a host written in another case, with a trailing dot or in an internationalised form.
+
 6.0.0 - 2026-08-10
 - Compatibility with Matomo 6
 

@@ -180,8 +180,6 @@ class MicrosoftTeams extends \Piwik\Plugin
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookRequiredErrorMessage'));
         } elseif (!UrlHelper::isLookLikeUrl($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
-        } elseif ($this->isIpHost(parse_url($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER], PHP_URL_HOST))) {
-            throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
 
         $this->assertWebhookDestinationAllowed($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
@@ -417,8 +415,6 @@ class MicrosoftTeams extends \Piwik\Plugin
                 throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookRequiredErrorMessage'));
             } elseif (!UrlHelper::isLookLikeUrl($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER])) {
                 throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
-            } elseif ($this->isIpHost(parse_url($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER], PHP_URL_HOST))) {
-                throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
             }
 
             $this->assertWebhookDestinationAllowed($parameters[self::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER]);
@@ -427,42 +423,66 @@ class MicrosoftTeams extends \Piwik\Plugin
         }
     }
 
-    private function isIpHost(?string $host): bool
-    {
-        if (empty($host)) {
-            return false;
-        }
-
-        $host = trim($host, '[]');
-
-        return filter_var($host, FILTER_VALIDATE_IP) !== false || ctype_digit($host);
-    }
-
+    /**
+     * Rejects webhook URLs Matomo must never post to.
+     *
+     * The authoritative destination check runs when the webhook is called, over the SSRF safe fetch
+     * path in {@see MicrosoftTeamsApi::sendMessageToTeamsChannel()}, which resolves the host and pins
+     * the validated address. This is the DNS free part of that contract, so that a webhook URL which
+     * can never be a Teams channel is reported while the report or alert is being saved.
+     *
+     * @throws \Exception
+     */
     private function assertWebhookDestinationAllowed(string $webhookUrl): void
     {
-        $host = parse_url($webhookUrl, PHP_URL_HOST);
-        if (empty($host)) {
-            return;
-        }
+        $host = $this->canonicaliseHost(parse_url($webhookUrl, PHP_URL_HOST));
 
-        $host = trim($host, '[]');
-
-        if ($this->isLocalMatomoHost($host)) {
+        if (
+            $host === ''
+            // A Teams webhook is always a named host, so any address literal only points at
+            // infrastructure the user should not be able to aim Matomo at. Encoded forms are
+            // rejected with it, as libc resolves them as literals through inet_aton, e.g.
+            // 2130706433, 0x7f000001 and 127.1 all reach the loopback interface.
+            || filter_var($host, FILTER_VALIDATE_IP) !== false
+            || preg_match('/^0x[0-9a-f]+$/i', $host)
+            || preg_match('/^[0-9.]+$/', $host)
+            || $this->isLocalMatomoHost($host)
+        ) {
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
     }
 
+    /**
+     * Folds a host to the form the transport will connect to, so that the checks made on it cannot be
+     * sidestepped with casing, a trailing dot or an internationalised spelling of the same name.
+     */
+    private function canonicaliseHost(?string $host): string
+    {
+        $host = trim((string) $host, '[]');
+
+        if ($host !== '' && preg_match('/[^\x20-\x7e]/', $host) && function_exists('idn_to_ascii')) {
+            $ascii = idn_to_ascii($host, IDNA_DEFAULT, INTL_IDNA_VARIANT_UTS46);
+
+            if (is_string($ascii) && $ascii !== '') {
+                $host = $ascii;
+            }
+        }
+
+        return rtrim(strtolower($host), '.');
+    }
+
+    /**
+     * @param string $host canonicalised host, as returned by {@see canonicaliseHost()}
+     */
     private function isLocalMatomoHost(string $host): bool
     {
-        $host = strtolower($host);
-
         if (in_array($host, ['localhost', 'localhost.localdomain', 'ip6-localhost'], true)) {
             return true;
         }
 
-        $matomoHost = parse_url(SettingsPiwik::getPiwikUrl(), PHP_URL_HOST);
+        $matomoHost = $this->canonicaliseHost(parse_url(SettingsPiwik::getPiwikUrl(), PHP_URL_HOST));
 
-        return !empty($matomoHost) && strcasecmp(trim($matomoHost, '[]'), $host) === 0;
+        return $matomoHost !== '' && $matomoHost === $host;
     }
 
     /**

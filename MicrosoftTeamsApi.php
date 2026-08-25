@@ -13,7 +13,9 @@ namespace Piwik\Plugins\MicrosoftTeams;
 
 use Piwik\Container\StaticContainer;
 use Piwik\Http;
+use Piwik\Http\EgressBlockedException;
 use Piwik\Log\LoggerInterface;
+use Piwik\UrlHelper;
 
 class MicrosoftTeamsApi
 {
@@ -176,8 +178,22 @@ class MicrosoftTeamsApi
                 self::TEAMS_TIMEOUT,
                 [json_encode(['text' => $message], JSON_UNESCAPED_SLASHES)],
                 ["Content-Type: application/json"],
-                true
+                true,
+                'POST',
+                // the webhook URL is user supplied, so this is the only request that can be pointed
+                // at an internal host, whether it was stored before it could be validated or the
+                // host resolves to a private address only now
+                $validateEgressIp = true
             );
+        } catch (EgressBlockedException $e) {
+            // an admin fixable refusal rather than a transient network error, so it is worth a
+            // higher level than the failures below
+            $this->logger->warning('MicrosoftTeams webhook request to {host} was refused: {message}', [
+                // the host only, so that the secret the webhook URL carries stays out of the log
+                'host' => UrlHelper::getHostFromUrl($this->webhookUrl),
+                'message' => $e->getMessage(),
+            ]);
+            return false;
         } catch (\Exception $e) {
             $this->logger->error('MicrosoftTeams error sendMessageToTeamsChannel: ' . $e->getMessage());
             return false;
@@ -265,10 +281,14 @@ class MicrosoftTeamsApi
      * @param array $additionalHeaders
      * @param $requestBodyAsString
      * @param $httpMethod
+     * @param bool $validateEgressIp whether to send the request over Matomo's SSRF safe fetch path, which
+     *                               requires the request to resolve to a public address, pins the connection
+     *                               to it and revalidates every redirect hop. Only needed for URLs that are
+     *                               not hardcoded in this class.
      * @return string
      * @throws \Exception
      */
-    private function sendHttpRequest(string $url, int $timeout, ?array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false, $httpMethod = 'POST')
+    private function sendHttpRequest(string $url, int $timeout, ?array $requestBody, array $additionalHeaders = [], $requestBodyAsString = false, $httpMethod = 'POST', bool $validateEgressIp = false)
     {
         if ($requestBodyAsString && !empty($requestBody[0])) {
             $requestBody = $requestBody[0];
@@ -290,7 +310,10 @@ class MicrosoftTeamsApi
             $httpUsername = null,
             $httpPassword = null,
             $requestBody,
-            $additionalHeaders
+            $additionalHeaders,
+            $forcePost = null,
+            $checkHostIsAllowed = true,
+            $validateEgressIp
         );
     }
 }
