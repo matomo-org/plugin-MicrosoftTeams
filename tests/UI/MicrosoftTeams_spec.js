@@ -107,7 +107,7 @@
     const selector = '.page';
     await captureScreen('teams_report_save_report', async () => {
         await page.evaluate(() => $('#teamsUserCountry_getCountry').click());
-        await page.type('input#webhookURL', 'https://WEBHOOK_URL');
+        await page.type('input#webhookURL', 'https://webhook-url.example.com');
         await page.click('.matomo-save-button input.btn');
         await page.waitForNetworkIdle();
     }, selector);
@@ -128,7 +128,7 @@
     const selector = '.page';
     await captureScreen('teams_report_pdf_save', async () => {
       await page.evaluate(() => $('#teamsUserCountry_getCountry').click());
-      await page.type('input#webhookURL', 'https://WEBHOOK_URLNEW');
+      await page.type('input#webhookURL', 'https://webhook-url-new.example.com');
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
     }, selector);
