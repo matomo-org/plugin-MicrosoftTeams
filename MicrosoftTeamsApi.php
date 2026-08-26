@@ -186,9 +186,9 @@ class MicrosoftTeamsApi
                 $validateEgressIp = true
             );
         } catch (EgressBlockedException $e) {
-            // an admin fixable refusal rather than a transient network error, so it is worth a
-            // higher level than the failures below
-            $this->logger->warning('MicrosoftTeams webhook request to {host} was refused: {message}', [
+            // an admin fixable refusal rather than a transient network error, so it must stay visible
+            // on an install that only keeps errors, hence the same level as the failures below
+            $this->logger->error('MicrosoftTeams webhook request to {host} was refused: {message}', [
                 // the host only, so that the secret the webhook URL carries stays out of the log
                 'host' => UrlHelper::getHostFromUrl($this->webhookUrl),
                 'message' => $e->getMessage(),

@@ -439,17 +439,53 @@ class MicrosoftTeams extends \Piwik\Plugin
 
         if (
             $host === ''
-            // A Teams webhook is always a named host, so any address literal only points at
-            // infrastructure the user should not be able to aim Matomo at. Encoded forms are
-            // rejected with it, as libc resolves them as literals through inet_aton, e.g.
-            // 2130706433, 0x7f000001 and 127.1 all reach the loopback interface.
-            || filter_var($host, FILTER_VALIDATE_IP) !== false
-            || preg_match('/^0x[0-9a-f]+$/i', $host)
-            || preg_match('/^[0-9.]+$/', $host)
+            || $this->isAddressLiteralHost($host)
+            // A Teams webhook host is a plain letter digit hyphen name, so everything else is
+            // refused by not matching that, rather than by enumerating the ways a host can be
+            // written, e.g. a percent encoded '%6c%6fcalhost' or an underscore.
+            || !preg_match('/^(?=.{1,253}$)([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)(\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$/i', $host)
             || $this->isLocalMatomoHost($host)
         ) {
             throw new \Exception(Piwik::translate('MicrosoftTeams_IncomingWebhookInvalidErrorMessage'));
         }
+    }
+
+    /**
+     * Whether the host is an address literal rather than a name, in any spelling the transport reads
+     * as one.
+     *
+     * A Teams webhook is always a named host, so an address literal only points at infrastructure the
+     * user should not be able to aim Matomo at, and curl accepts far more spellings of one than
+     * filter_var() does: inet_aton() reads one to four decimal, octal or hexadecimal parts, so
+     * 2130706433, 0x7f000001, 0177.0.0.1, 127.1, 0x7f.1 and 0x7f.0x0.0x0.0x1 all reach the loopback
+     * interface. The name check cannot stand in for this, as '0x7f' and '1' are both valid labels.
+     *
+     * @param string $host canonicalised host, as returned by {@see canonicaliseHost()}
+     */
+    private function isAddressLiteralHost(string $host): bool
+    {
+        if (filter_var($host, FILTER_VALIDATE_IP) !== false) {
+            return true;
+        }
+
+        // more parts than inet_aton() reads, but digits and dots alone still cannot name a host
+        if (preg_match('/^[0-9.]+$/', $host)) {
+            return true;
+        }
+
+        $parts = explode('.', $host);
+
+        if (count($parts) > 4) {
+            return false;
+        }
+
+        foreach ($parts as $part) {
+            if (!preg_match('/^(0x[0-9a-f]+|[0-9]+)$/i', $part)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

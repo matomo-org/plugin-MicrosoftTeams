@@ -165,9 +165,9 @@ class ScheduledReportsTest extends IntegrationTestCase
     }
 
     /**
-     * @dataProvider provideWebhookUrlsWithIpHosts
+     * @dataProvider provideWebhookUrlsWithHostsThatAreNotDnsNames
      */
-    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIpHosts($webhookUrl)
+    public function testValidateReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForHostsThatAreNotDnsNames($webhookUrl)
     {
         $this->setRequiredFields();
         $this->expectException(\Exception::class);
@@ -259,9 +259,9 @@ class ScheduledReportsTest extends IntegrationTestCase
     }
 
     /**
-     * @dataProvider provideWebhookUrlsWithIpHosts
+     * @dataProvider provideWebhookUrlsWithHostsThatAreNotDnsNames
      */
-    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForIpHosts($webhookUrl)
+    public function testValidateCustomAlertReportParametersShouldThrowMicrosoftTeamsWebhookUrlExceptionForHostsThatAreNotDnsNames($webhookUrl)
     {
         $this->setRequiredFields();
         $this->expectException(\Exception::class);
@@ -343,7 +343,7 @@ class ScheduledReportsTest extends IntegrationTestCase
         $this->assertNotEmpty($parameters);
     }
 
-    public function provideWebhookUrlsWithIpHosts()
+    public function provideWebhookUrlsWithHostsThatAreNotDnsNames()
     {
         return [
             'public ipv4' => ['https://8.8.8.8/hook'],
@@ -351,10 +351,16 @@ class ScheduledReportsTest extends IntegrationTestCase
             'public ipv6' => ['https://[2001:4860:4860::8888]/hook'],
             'link local ipv6' => ['https://[fe80::1]/hook'],
             'ipv4 mapped ipv6' => ['https://[::ffff:169.254.169.254]/hook'],
-            // forms libc resolves as an address literal through inet_aton
+            // forms curl resolves as an address literal through inet_aton
             'integer loopback alias' => ['http://2130706433:18081/hook'],
             'hexadecimal loopback alias' => ['http://0x7f000001/hook'],
             'shortened loopback alias' => ['http://127.1/hook'],
+            'octal loopback alias' => ['http://0177.0.0.1/hook'],
+            'hexadecimal and dotted loopback alias' => ['http://0x7f.1/hook'],
+            'fully hexadecimal dotted loopback alias' => ['http://0x7f.0x0.0x0.0x1/hook'],
+            // spellings curl does not resolve either, but they cannot name a Teams channel
+            'percent encoded localhost' => ['https://%6c%6fcalhost/hook'],
+            'host with an underscore' => ['https://in_ternal/hook'],
         ];
     }
 

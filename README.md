@@ -39,6 +39,30 @@ Automate the way your organisation shares analytics. With the Microsoft Teams pl
 
 Install it via Matomo Marketplace
 
+## FAQ
+
+__Why are my Microsoft Teams messages not delivered on an install that uses an outgoing proxy?__
+
+Matomo sends the webhook request over its SSRF safe fetch path, which resolves the webhook host itself
+and connects to the address it validated. That path needs the curl PHP extension and cannot go through
+a proxy, so on an install that only reaches the internet through a proxy configured in the `[proxy]`
+section of `config/config.ini.php` every Teams message is refused. Such a refusal is written to the
+Matomo log as `MicrosoftTeams webhook request to <host> was refused`. Sending Teams messages through a
+proxy is not supported at the moment.
+
+__Why is my webhook URL rejected as invalid?__
+
+The webhook host has to be a name that resolves to a public address, because the plugin must not be
+able to make Matomo call itself or another host on your network. An IP address, an encoded address such
+as `127.1` or `0x7f000001`, `localhost` and the host Matomo itself is reached on are all rejected while
+the report or alert is being saved.
+
+__Can I use a Teams webhook that is served on a private address?__
+
+Yes, if you allow that address explicitly. Add it, or the range it is in, to
+`allowed_private_egress_ranges` in the `[General]` section of `config/config.ini.php`. The webhook still
+has to be a named host, so an address written directly in the webhook URL stays rejected.
+
 ## License
 
 GPL v3 or later
