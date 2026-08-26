@@ -77,7 +77,7 @@
     testEnvironment.configOverride.MicrosoftTeams = {teamsClientID: 'clientID', teamsClientSecret: 'clientSecret', teamsTenantID: 'tenantID', teamsTeamID: 'teamID'};
     testEnvironment.save();
     await captureScreen('teams_alert_report_save_success', async () => {
-      await page.type('input#webhookURL', 'https://WEBHOOK_URL');
+      await page.type('input#webhookURL', 'https://webhook-url.example.com');
       await page.click('.matomo-save-button input.btn');
       await page.waitForNetworkIdle();
     }, selector);

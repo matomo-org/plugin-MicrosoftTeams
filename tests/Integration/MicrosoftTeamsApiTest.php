@@ -140,7 +140,7 @@ class MicrosoftTeamsApiTest extends IntegrationTestCase
             ->setMethods([
                 'sendMessageToTeamsChannel',
             ])
-            ->setConstructorArgs(array('https://WEBHOOK_URL'))
+            ->setConstructorArgs(array('https://webhook-url.example.com'))
             ->getMock();
         $helperMock->expects($this->once())->method('sendMessageToTeamsChannel')->willReturn(false);
 
@@ -153,7 +153,7 @@ class MicrosoftTeamsApiTest extends IntegrationTestCase
             ->setMethods([
                 'sendMessageToTeamsChannel',
             ])
-            ->setConstructorArgs(array('https://WEBHOOK_URL'))
+            ->setConstructorArgs(array('https://webhook-url.example.com'))
             ->getMock();
         $helperMock->expects($this->once())->method('sendMessageToTeamsChannel')->willReturn(true);
 

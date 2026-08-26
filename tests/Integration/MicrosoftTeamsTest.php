@@ -273,7 +273,7 @@ class ScheduledReportsTest extends IntegrationTestCase
     public function testValidateReportParametersMicrosoftTeamsShouldNotThrowAnyException()
     {
         $this->setRequiredFields();
-        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://WEBHOK_URL'];
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://webhook-url.example.com'];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teams']);
         $this->assertNotEmpty($parameters);
     }
@@ -281,7 +281,7 @@ class ScheduledReportsTest extends IntegrationTestCase
     public function testValidateCustomAlertReportParametersMicrosoftTeamsShouldNotThrowAnyException()
     {
         $this->setRequiredFields();
-        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://WEBHOK_URL'];
+        $parameters = [MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://webhook-url.example.com'];
         Piwik::postEvent('CustomAlerts.validateReportParameters', [&$parameters, 'teams']);
         $this->assertNotEmpty($parameters);
     }
@@ -338,7 +338,7 @@ class ScheduledReportsTest extends IntegrationTestCase
     public function testValidateReportParametersMicrosoftTeamsShouldNotThrowAnyException2()
     {
         $this->setRequiredFields();
-        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://WEBHOK_URL'];
+        $parameters = [ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DISPLAY_FORMAT_GRAPHS_ONLY, MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'http://webhook-url.example.com'];
         Piwik::postEvent('ScheduledReports.validateReportParameters', [&$parameters, 'teans']);
         $this->assertNotEmpty($parameters);
     }
@@ -394,7 +394,7 @@ class ScheduledReportsTest extends IntegrationTestCase
         $reportType   = 'teams';
         $reports      = array();
         $parameters   = array(
-            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://WEBHOOK_URL',
+            MicrosoftTeams::MS_TEAMS_INCOMING_WEBHOOK_URL_PARAMETER => 'https://webhook-url.example.com',
             ScheduledReports::DISPLAY_FORMAT_PARAMETER => ScheduledReports::DEFAULT_DISPLAY_FORMAT,
             ScheduledReports::EVOLUTION_GRAPH_PARAMETER => ScheduledReports::EVOLUTION_GRAPH_PARAMETER_DEFAULT_VALUE,
         );
