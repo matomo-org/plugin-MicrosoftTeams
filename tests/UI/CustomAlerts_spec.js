@@ -58,6 +58,9 @@
     const selector = '.page';
     await captureScreen('teams_report_enabled_default', async () => {
       await page.evaluate(() => $('.report-mediums .select-wrapper ul li:contains("Teams")').click());
+      // picking an option leaves the select focused, and the restyled control paints a
+      // :focus-within border the capture catches only sometimes
+      await page.evaluate(() => document.activeElement && document.activeElement.blur());
     }, selector);
   });
 
