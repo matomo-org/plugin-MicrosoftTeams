@@ -1,7 +1,7 @@
 parameters:
     level: 5
     phpVersion: 80100
-    tmpDir: /tmp/phpstan/Slack/main
+    tmpDir: /tmp/phpstan/MicrosoftTeams/main
     paths:
         - .
     excludePaths:
