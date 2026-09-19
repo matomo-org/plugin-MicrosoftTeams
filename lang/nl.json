@@ -1,1 +1,37 @@
-{}
+{
+    "MicrosoftTeams": {
+        "IncomingWebhookRequiredErrorMessage": "Microsoft Teams webhook-URL kan niet leeg zijn.",
+        "IncomingWebhookInvalidErrorMessage": "Ongeldige Microsoft Teams webhook-URL.",
+        "TeamsWebhookUrl": "Microsoft Teams webhook-URL",
+        "TeamsChannel": "Microsoft Teams kanaal",
+        "ClientSecretExpiryDateDescription": "Optioneel. Geef de vervaldatum in DD-MM-JJJJ formaat om een melding te ontvangen bij einde looptijd.",
+        "ClientSecretExpiryEmailOwnerExpiredBody": "Hallo,\n\nUw geplande rapporten naar Microsoft Teams, zullen niet langer worden afgeleverd.\n\nHet Microsoft Teams client secret is verlopen. Een Matomo systeembeheerder moet een nieuw client secret genereren en configureren om de integratie te herstellen.\n\nNeem contact op met de Matomo systeembeheerder.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailOwnerExpiredSubject": "Microsoft Teams integratie is verlopen",
+        "ClientSecretExpiryEmailOwnerFourWeeksBody": "Hallo,\n\nUw geplande rapporten naar Microsoft Teams hangen af van een client secret dat zal verlopen op %1$s.\n\nAls dit secret niet vernieuwd wordt, zal het afleveren van rapporten naar Microsoft Teams stopgezet worden.\n\nEnkel een Matomo systeembeheerder kan dit vernieuwen. We raden aan om uw Matomo systeembeheerder te contacteren om na te gaan of het client secret zal worden vervangen vóór de vervaldatum.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailOwnerFourWeeksSubject": "De Microsoft Teams integratie zal over 4 weken eindigen",
+        "ClientSecretExpiryEmailOwnerOneWeekBody": "Hallo,\n\nHet Microsoft Teams client secret, gebruikt voor het leveren van geplande rapporten, eindigt over één week (%1$s).\n\nHierdoor zullen geplande rapporten naar Microsoft Teams niet meer afgeleverd worden.\n\nNeem contact op met uw Matomo systeembeheerder voor een bevestiging van de vernieuwing.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailOwnerOneWeekSubject": "Laatste herinnering: Microsoft Teams integratie zal binnenkort eindigen",
+        "ClientSecretExpiryEmailOwnerThreeWeeksBody": "Hallo,\n\nDit is een herinnering dat het Microsoft Teams client secret, gebruikt voor geplande rapporten, zal eindigen op %1$s.\n\nHierdoor zullen geplande rapporten naar Microsoft Teams niet meer afgeleverd worden.\n\nVerifieer bij uw Matomo systeembeheerder of het client secret tijdig zal worden vernieuwd.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailOwnerThreeWeeksSubject": "Herinnering: Microsoft Teams integratie heeft een update nodig",
+        "ClientSecretExpiryEmailOwnerTwoWeeksBody": "Hallo,\n\nHet Microsoft Teams client secret, gebruikt voor geplande rapporten, zal aflopen op %1$s.\n\nOm onderbrekingen te vermijden, verifieer bij uw Matomo systeembeheerder of het client secret zal vernieuwd worden vóór deze datum.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailOwnerTwoWeeksSubject": "Aankomende beëindiging: Controleer de Microsoft Teams integratie",
+        "ClientSecretExpiryEmailSuperUserExpiredBody": "Hallo,\n\nUw Microsoft Teams client secret is nu afgelopen.\n\nMatomo kan niet langer meldingen of geplande rapporten naar Microsoft Teams verzenden.\n\nOm de integratie te herstellen, genereer een nieuw client secret en update uw configuratie.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailSuperUserExpiredSubject": "Actie vereist: Het Microsoft Teams client secret is vervallen",
+        "ClientSecretExpiryEmailSuperUserFourWeeksBody": "Hallo,\n\nUw Microsoft Teams client secret zal vervallen op %1$s.\n\nOm de verbinding tussen Matomo en Microsoft Teams te behouden, genereer en configureer een nieuw client secret vóór deze datum.\n\nAls de secret vervalt, zal Matomo stoppen met het sturen van meldingen en geplande rapporten naar Microsoft Teams.\n\nWe raden aan om het client secret te updaten om onderbrekingen te voorkomen.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailSuperUserFourWeeksSubject": "Microsoft Teams client secret vervalt over 4 weken",
+        "ClientSecretExpiryEmailSuperUserOneWeekBody": "Hallo,\n\nUw Microsoft Teams client secret zal vervallen over één week (%1$s).\n\nOm een onderbreking van meldingen en geplande rapporten te voorkomen, update het client secret vóór deze vervaldatum.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailSuperUserOneWeekSubject": "Laatste herinnering: Microsoft Teams client secret vervalt binnenkort",
+        "ClientSecretExpiryEmailSuperUserThreeWeeksBody": "Hallo,\n\nDit is een herinnering dat uw Microsoft Teams client secret zal vervallen op %1$s.\n\nVernieuw het client secret vóór deze datum zodat Matomo meldingen en geplande rapporten kan blijven verzenden.\n\nAls er geen actie ondernomen wordt, zal de integratie stoppen met werken na deze vervaldatum.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailSuperUserThreeWeeksSubject": "Microsoft Teams client secret vervalt over 3 weken",
+        "ClientSecretExpiryEmailSuperUserTwoWeeksBody": "Hallo,\n\nUw Microsoft Teams client secret zal vervallen op %1$s.\n\nAls er nog geen update gedaan werd, genereer en configureer dan een nieuw client secret om onderbreking van uw Microsoft Teams integratie te vermijden.\n\nHet Matomo Team",
+        "ClientSecretExpiryEmailSuperUserTwoWeeksSubject": "Aankomende beëindiging: Microsoft Teams client secret",
+        "EncryptionKeyInvalid": "Microsoft Teams encryptiesleutel ontbreekt of is ongeldig.",
+        "TeamIdDescription": "Geef uw Microsoft Teams ID. %1$sLees meer%2$s.",
+        "TeamsEnterYourWebhookUrlText": "Geef uw Microsoft Teams webhook-URL. %1$sLees meer%2$s over hoe de webhook-URL te krijgen.",
+        "RequiredFieldsNotSet": "De vereiste velden om een bestand te versturen zijn niet ingesteld. Stel ze %1$shier%2$s in.",
+        "PleaseFindYourReport": "Hier is uw %1$s rapport voor %2$s.",
+        "MicrosoftTeamsAlertContent": "%1$s is geactiveerd voor %2$s als meetwaarde %3$s in het rapport %4$s %5$s.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeText": "Uw Microsoft Teams rapport gebruikt een verouderde webhook-URL. Volg deze %1$shandleiding%2$s om een nieuwe aan te maken.",
+        "MicrosoftTeamsWebhookUrlDeprecatedNoticeTextCustomAlerts": "Uw Microsoft Teams melding gebruikt een verouderde webhook-URL. Volg deze %1$shandleiding%2$s om een nieuwe aan te maken."
+    }
+}
