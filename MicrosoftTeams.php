@@ -66,6 +66,25 @@ class MicrosoftTeams extends \Piwik\Plugin
             'CustomAlerts.sendNewAlerts' => 'sendNewAlerts',
             'AssetManager.getJavaScriptFiles' => 'getJsFiles',
             'Template.jsGlobalVariables' => 'addJsGlobalVariables',
+            'CoreAdminHome.getEncryptionKeyRotationTargets' => 'getEncryptionKeyRotationTargets',
+        ];
+    }
+
+    public function getEncryptionKeyRotationTargets(array &$targets): void
+    {
+        $targets['MicrosoftTeams'] = [
+            'configSection' => Configuration::SECTION_NAME,
+            'configKey' => Configuration::KEY_ENCRYPTION_KEY,
+            'pluginSettings' => ['teamsClientID', 'teamsClientSecret', 'teamsClientSecretExpiryDate', 'teamsTenantID', 'teamsTeamID'],
+            'isEncrypted' => function ($value): bool {
+                return (new Encryption())->isEncrypted($value);
+            },
+            'decrypt' => function (string $value, #[\SensitiveParameter] string $key): string {
+                return Encryption::withKey($key)->decryptString($value);
+            },
+            'encrypt' => function (#[\SensitiveParameter] string $value, #[\SensitiveParameter] string $key): string {
+                return Encryption::withKey($key)->encryptString($value);
+            },
         ];
     }
 
