@@ -1,5 +1,8 @@
 ## Changelog
 
+6.0.3
+- Answered requests with a missing or invalid Microsoft Teams webhook URL or display format with HTTP 400 from Matomo 6.1.0, instead of HTTP 200 with an error message
+
 6.0.2 - 2026-10-05
 - Support rotating the encryption key of the stored Microsoft Teams credentials with the `core:rotate-encryption-keys` console command (available from the Matomo release that introduces it)
 

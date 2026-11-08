@@ -11,6 +11,7 @@ namespace Piwik\Plugins\MicrosoftTeams\tests;
 
 use Piwik\Tests\Framework\Fixture;
 use Piwik\Tests\Framework\TestCase\IntegrationTestCase;
+use Piwik\Version;
 use Piwik\Tests\Framework\TestingEnvironmentManipulator;
 use Piwik\Plugins\CustomAlerts\API;
 
@@ -45,21 +46,24 @@ class CustomAlertsApiTest extends IntegrationTestCase
 
     public function testAddAlertShouldThrowExceptionIfSMicrosoftTeamsWebhookUrlEmpty()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookRequiredErrorMessage');
         $this->addAlert('');
     }
 
     public function testAddAlertShouldThrowExceptionIfInvalidMicrosoftTeamsWebhookUrl()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $this->addAlert('webhookURL');
     }
 
     public function testAddAlertShouldThrowExceptionIfMicrosoftTeamsWebhookUrlUsesIntegerLoopbackAlias()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $this->addAlert('http://2130706433:18081/hook');
     }
@@ -75,7 +79,8 @@ class CustomAlertsApiTest extends IntegrationTestCase
 
     public function testUpdateAlertShouldThrowExceptionIfEmptyMicrosoftTeamsWebhookUrl()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookRequiredErrorMessage');
         $idAlert = $this->addAlert('https://webhook.microsft.com/webhook');
         $this->updateAlert($idAlert);
@@ -83,7 +88,8 @@ class CustomAlertsApiTest extends IntegrationTestCase
 
     public function testUpdateAlertShouldThrowExceptionIfInvalidMicrosoftTeamsWebhookUrl()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $idAlert = $this->addAlert('https://webhook.microsft.com/webhook');
         $this->updateAlert($idAlert, 'webhookURL');
@@ -91,7 +97,8 @@ class CustomAlertsApiTest extends IntegrationTestCase
 
     public function testUpdateAlertShouldThrowExceptionIfMicrosoftTeamsWebhookUrlUsesIntegerLoopbackAlias()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(\Piwik\Http\BadRequestException::class);
+        $this->expectExceptionCode($this->getExpectedClientErrorCode());
         $this->expectExceptionMessage('MicrosoftTeams_IncomingWebhookInvalidErrorMessage');
         $idAlert = $this->addAlert('https://webhook.microsft.com/webhook');
         $this->updateAlert($idAlert, 'http://2130706433:18081/hook');
@@ -150,5 +157,10 @@ class CustomAlertsApiTest extends IntegrationTestCase
             '',
             $msTeamsWebhookUrl
         );
+    }
+
+    private function getExpectedClientErrorCode(): int
+    {
+        return version_compare(Version::VERSION, '6.1.0-alpha', '>=') ? 400 : 0;
     }
 }
