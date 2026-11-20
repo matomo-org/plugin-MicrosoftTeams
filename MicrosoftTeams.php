@@ -656,7 +656,7 @@ class MicrosoftTeams extends \Piwik\Plugin
 
     private static function valueIsTrue($value)
     {
-        return $value == 'true' || $value == 1 || $value == '1' || $value === true;
+        return $value == 'true' || $value == 1 || $value == '1';
     }
 
     private function markReportAsSent($report, Period $period)
