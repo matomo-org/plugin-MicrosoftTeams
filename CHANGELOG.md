@@ -1,5 +1,8 @@
 ## Changelog
 
+6.0.4 - 2026-11-23
+- Updated translations
+
 6.0.3 - 2026-11-16
 - Answered requests with a missing or invalid Microsoft Teams webhook URL or display format with HTTP 400 from Matomo 6.1.0, instead of HTTP 200 with an error message
 
