@@ -39,6 +39,10 @@ jobs:
       matrix:
         php: [ 'matomo5_min_php', 'matomo5_max_php' ]
         target: ['minimum_required_matomo', 'maximum_supported_matomo']
+        # The minimum Matomo predates core's PHP 8.6 fix (create_sid, #25726), so it cannot pass on max PHP
+        exclude:
+          - php: 'matomo5_max_php'
+            target: 'minimum_required_matomo'
     steps:
       - uses: actions/checkout@v3
         with:
