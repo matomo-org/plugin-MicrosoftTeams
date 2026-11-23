@@ -1,5 +1,8 @@
 ## Changelog
 
+5.2.1 - 2026-11-23
+- Updated translations
+
 5.2.0 - 2026-07-20
 - Encrypted Microsoft Teams system settings and added a migration for existing plaintext values.
 - Added code to harden the URL check for Microsoft Teams
